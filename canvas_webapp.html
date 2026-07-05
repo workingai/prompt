@@ -71,12 +71,12 @@
     .flow{display:grid;grid-template-columns:1fr 50px 1fr;gap:14px;align-items:stretch;margin-top:22px}
     .card{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
     .card-head{padding:17px 18px;background:var(--soft-green);border-bottom:1px solid #CFE5DA;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-    .card-head h2{margin:0 0 4px;color:var(--green);font-size:18px;font-weight:850}.card-head p{margin:0;color:var(--sub);font-size:12px;line-height:1.45}
+    .card-head h2{margin:0 0 4px;color:var(--text);font-size:18px;font-weight:800}.card-head p{margin:0;color:var(--sub);font-size:12px;line-height:1.25}
     .badge{padding:5px 8px;border-radius:999px;background:#fff;color:var(--green);border:1px solid #CFE5DA;font:700 10px "IBM Plex Mono",monospace;white-space:nowrap}
     .card-body{padding:18px}
     label{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;font-size:13px;font-weight:800}
     label small{font-size:11px;color:var(--sub);font-weight:500}
-    textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:12px;background:#fff;color:var(--text);font:13px/1.6 "Pretendard",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;outline:none;height:120px;resize:none}
+    textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:16px;background:#fff;color:#333330;font:16px/1.6 "Pretendard",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;outline:none;height:120px;resize:none}
     .input-list{display:flex;flex-direction:column;gap:12px}
     .arrow{display:flex;align-items:center;justify-content:center;color:var(--green);font:700 25px "IBM Plex Mono",monospace}
     .actions{display:flex;justify-content:center;gap:12px;margin-top:32px}
@@ -96,11 +96,10 @@
     class="flex-shrink-0 w-full lg:w-64 bg-white border-b lg:border-b-0 lg:border-r border-[#DDDBD5] flex flex-col lg:h-screen pt-[calc(5px+1.25rem)] lg:pt-[calc(5px+1.5rem)]">
     <!-- Brand block -->
     <div class="px-5 pb-4 mb-2 border-b border-[#DDDBD5]">
-      <a class="inline-flex bg-brand-500 hover:bg-brand-600 text-white font-mono text-[11px] font-bold tracking-wider px-3 py-1.5 rounded-full transition-colors uppercase"
-        href="https://workingai.kr" target="_blank">
-        WORKING AI
+      <a class="font-sans text-xl font-extrabold tracking-tight hover:opacity-80 transition-opacity"
+        href="https://workingai.kr" target="_blank" style="text-decoration: none;">
+        <span class="text-neutral-900">Working</span> <span class="text-brand-500">AI</span>
       </a>
-      <p class="text-xs text-[#605E59] mt-2.5 font-medium">사내 AI 실습</p>
     </div>
 
     <!-- Nav list -->
@@ -145,30 +144,33 @@
     </header>
 
     <section class="border border-[#DDDBD5] rounded-2xl p-5 md:p-6 bg-white shadow-sm flex-1 flex flex-col overflow-y-auto">
-  <section class="sample-bar">
-    <div>
-      <div class="sample-label">💡 웹앱 예시 선택</div>
-      <div class="sample-desc">선택한 예시의 Input·Output·기능 설명이 자동으로 입력됩니다. 내용을 자유롭게 바꿔 나만의 업무 도구로 확장해 보세요.</div>
-    </div>
-    <select id="sampleSelect">
-      <option value="qr">QR 코드 생성기</option>
-      <option value="color">컬러코드 추출기</option>
-      <option value="pdf">PDF 분리기</option>
-      <option value="resize">이미지 규격 변환기</option>
-      <option value="minutes">회의록 작성기</option>
-    </select>
-  </section>
+      <!-- Card Head -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DDDBD5] pb-4 mb-4 flex-shrink-0">
+        <div>
+          <h2 class="text-lg md:text-xl font-extrabold text-neutral-900">웹앱 프롬프트 생성 조건 입력</h2>
+          <p class="text-xs md:text-sm text-[#605E59] mt-1">선택한 예시의 Input·Output·기능 설명이 자동으로 입력됩니다. 내용을 자유롭게 바꿔보세요.</p>
+        </div>
+        <div>
+          <select id="sampleSelect" class="text-base font-bold border border-[#DDDBD5] bg-white text-neutral-700 rounded-lg px-4 py-2.5 w-64 md:w-80 focus:border-brand-500 focus:outline-none cursor-pointer">
+            <option value="qr">QR 코드 생성기</option>
+            <option value="color">컬러코드 추출기</option>
+            <option value="pdf">PDF 분리기</option>
+            <option value="resize">이미지 규격 변환기</option>
+            <option value="minutes">회의록 작성기</option>
+          </select>
+        </div>
+      </div>
 
   <section class="flow">
     <article class="card">
       <div class="card-head">
-        <div><h2>Input. 사용자가 입력하는 것</h2><p>웹앱에서 사용자가 입력해야 할 사항을 구체적으로 작성합니다.</p></div>
+        <div><h2>📥 Input. 사용자가 입력할 부분</h2><p>웹앱에서 사용자가 입력해야 할 사항을 구체적으로 작성합니다.</p></div>
         <span class="badge">INPUT</span>
       </div>
       <div class="card-body">
         <div class="input-list">
-          <div><label for="inputText">사용자 입력</label><textarea id="inputText">웹사이트 주소(URL)</textarea></div>
-          <div><label for="inputDetail">입력 방식 및 조건 (선택 영역)</label><textarea id="inputDetail">URL 입력창 1개, https:// 형식 검증</textarea></div>
+          <div><label for="inputText">사용자 입력</label><textarea id="inputText" class="w-full p-4 border border-[#DDDBD5] bg-white text-[#333330] text-base rounded-lg focus:border-brand-500 focus:outline-none resize-none h-32">웹사이트 주소(URL)</textarea></div>
+          <div><label for="inputDetail">입력 방식 및 조건 (선택 영역)</label><textarea id="inputDetail" class="w-full p-4 border border-[#DDDBD5] bg-white text-[#333330] text-base rounded-lg focus:border-brand-500 focus:outline-none resize-none h-32">URL 입력창 1개, https:// 형식 검증</textarea></div>
         </div>
       </div>
     </article>
@@ -177,13 +179,13 @@
 
     <article class="card">
       <div class="card-head">
-        <div><h2>Output. 챗봇이 생성하는 것</h2><p>인풋을 토대로 어떤 결과물을 만들지 정의합니다.</p></div>
+        <div><h2>📤 Output. 챗봇이 생성하는 결과</h2><p>인풋을 토대로 어떤 결과물을 만들지 정의합니다.</p></div>
         <span class="badge">OUTPUT</span>
       </div>
       <div class="card-body">
         <div class="input-list">
-          <div><label for="outputText">결과물</label><textarea id="outputText">입력한 URL을 QR 코드 이미지로 변환해 표시</textarea></div>
-          <div><label for="featureText">추가 기능 (선택 영역)</label><textarea id="featureText">생성 버튼 클릭 시 QR 코드 표시
+          <div><label for="outputText">결과물</label><textarea id="outputText" class="w-full p-4 border border-[#DDDBD5] bg-white text-[#333330] text-base rounded-lg focus:border-brand-500 focus:outline-none resize-none h-32">입력한 URL을 QR 코드 이미지로 변환해 표시</textarea></div>
+          <div><label for="featureText">추가 기능 (선택 영역)</label><textarea id="featureText" class="w-full p-4 border border-[#DDDBD5] bg-white text-[#333330] text-base rounded-lg focus:border-brand-500 focus:outline-none resize-none h-32">생성 버튼 클릭 시 QR 코드 표시
 QR 코드 이미지 아래 다운로드 버튼 제공
 초기화 버튼 제공</textarea></div>
         </div>
@@ -191,9 +193,20 @@ QR 코드 이미지 아래 다운로드 버튼 제공
     </article>
   </section>
 
-  <div class="actions">
-    <button class="secondary" id="resetBtn">초기화</button>
-    <button class="primary" id="copyBtn">프롬프트 복사하기</button>
+  <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-[#DDDBD5]">
+    <button class="px-5 h-11 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-sm md:text-base font-bold rounded-lg transition-colors focus:outline-none flex items-center justify-center gap-1.5" id="resetBtn">
+      <svg class="w-4 h-4 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path>
+      </svg>
+      내용 초기화
+    </button>
+    <button class="px-6 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm md:text-base font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none" id="copyBtn">
+      <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      프롬프트 복사
+    </button>
   </div>
   </section>
 </main>

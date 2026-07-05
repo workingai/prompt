@@ -75,11 +75,9 @@
     .panel-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:18px;background:var(--soft-green);margin-bottom:16px;border-bottom:1px solid rgba(42,107,82,.22)}
     .panel-title{font-size:17px;font-weight:800;letter-spacing:-.25px}.panel-desc{font-size:12px;color:var(--sub);line-height:1.45;margin-top:4px}
     .tag{font:700 10px var(--mono);color:var(--green);white-space:nowrap}
-    .group{margin:0 18px 14px}.group:last-child{margin-bottom:0}
+    .group{margin:0 18px 20px}.group:last-child{margin-bottom:0}
     label{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;font-weight:750;margin-bottom:7px}
     label small{font-size:11px;font-weight:500;color:var(--sub)}
-    input,select{width:100%;height:44px;padding:0 12px;background:#fff;border:1px solid var(--line);border-radius:7px;color:var(--text);font:13px var(--font);outline:none}
-    input:focus,select:focus{border-color:var(--green)}
     .keywords{display:flex;flex-direction:column;gap:8px}
     .tip{margin:18px;padding:12px;background:var(--soft);border:1px solid rgba(42,107,82,.18);border-radius:8px;color:var(--sub);font-size:11px;line-height:1.55;margin-top:auto}
     .actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
@@ -102,11 +100,10 @@
     class="flex-shrink-0 w-full lg:w-64 bg-white border-b lg:border-b-0 lg:border-r border-[#DDDBD5] flex flex-col lg:h-screen pt-[calc(5px+1.25rem)] lg:pt-[calc(5px+1.5rem)]">
     <!-- Brand block -->
     <div class="px-5 pb-4 mb-2 border-b border-[#DDDBD5]">
-      <a class="inline-flex bg-brand-500 hover:bg-brand-600 text-white font-mono text-[11px] font-bold tracking-wider px-3 py-1.5 rounded-full transition-colors uppercase"
-        href="https://workingai.kr" target="_blank">
-        WORKING AI
+      <a class="font-sans text-xl font-extrabold tracking-tight hover:opacity-80 transition-opacity"
+        href="https://workingai.kr" target="_blank" style="text-decoration: none;">
+        <span class="text-neutral-900">Working</span> <span class="text-brand-500">AI</span>
       </a>
-      <p class="text-xs text-[#605E59] mt-2.5 font-medium">사내 AI 실습</p>
     </div>
 
     <!-- Nav list -->
@@ -154,9 +151,14 @@
       <div class="head">
         <div>
           <h2>코드 생성 조건 입력</h2>
-          <p>3개 영역의 값만 입력하면 선택한 검색 조건에 맞는 Apps Script 코드가 자동으로 조합됩니다.</p>
+          <p>각 영역의 값만 입력하면 선택한 검색 조건에 맞는 Apps Script 코드가 자동으로 조합됩니다.</p>
         </div>
-        <span class="badge">3 PARTS</span>
+        <a href="https://developers.naver.com/" target="_blank" class="px-4 h-9 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs md:text-sm font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none" style="text-decoration: none;">
+          <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
+          </svg>
+          네이버 디벨로퍼
+        </a>
       </div>
 
       <div class="grid">
@@ -171,11 +173,11 @@
 
           <div class="group">
             <label for="clientId">Client ID <small>필수</small></label>
-            <input id="clientId" type="text" value="YOUR_CLIENT_ID" placeholder="예: abcdef123456">
+            <input id="clientId" type="text" placeholder="YOUR_CLIENT_ID" class="w-full px-4 py-2.5 border border-[#DDDBD5] bg-white text-neutral-900 text-[15px] rounded-lg focus:border-brand-500 focus:outline-none placeholder-neutral-400">
           </div>
           <div class="group">
             <label for="clientSecret">Client Secret <small>필수</small></label>
-            <input id="clientSecret" type="text" value="YOUR_CLIENT_SECRET" placeholder="예: ghijk7890">
+            <input id="clientSecret" type="text" placeholder="YOUR_CLIENT_SECRET" class="w-full px-4 py-2.5 border border-[#DDDBD5] bg-white text-neutral-900 text-[15px] rounded-lg focus:border-brand-500 focus:outline-none placeholder-neutral-400">
           </div>
 
           <p class="tip">발급받은 API 키는 코드에 포함됩니다. 공유용 코드에서는 키를 별도 관리하는 것을 권장합니다.</p>
@@ -192,7 +194,7 @@
 
           <div class="group">
             <label for="keywordCount">키워드 개수 <small>1~3개</small></label>
-            <select id="keywordCount">
+            <select id="keywordCount" class="w-full px-4 py-2.5 border border-[#DDDBD5] bg-white text-neutral-900 text-[15px] rounded-lg focus:border-brand-500 focus:outline-none cursor-pointer">
               <option value="1">1개</option>
               <option value="2" selected>2개</option>
               <option value="3">3개</option>
@@ -218,12 +220,12 @@
 
           <div class="group">
             <label for="displayCount">출력 개수 <small>키워드당 1~100개</small></label>
-            <input id="displayCount" type="number" min="1" max="100" value="20">
+            <input id="displayCount" type="number" min="1" max="100" value="20" class="w-full px-4 py-2.5 border border-[#DDDBD5] bg-white text-neutral-900 text-[15px] rounded-lg focus:border-brand-500 focus:outline-none placeholder-neutral-400">
           </div>
 
           <div class="group">
             <label for="sortType">정렬 기준</label>
-            <select id="sortType">
+            <select id="sortType" class="w-full px-4 py-2.5 border border-[#DDDBD5] bg-white text-neutral-900 text-[15px] rounded-lg focus:border-brand-500 focus:outline-none cursor-pointer">
               <option value="sim" selected>관련도순</option>
               <option value="date">최신순</option>
             </select>
@@ -231,7 +233,7 @@
 
           <div class="group">
             <label for="searchType">검색 대상</label>
-            <select id="searchType">
+            <select id="searchType" class="w-full px-4 py-2.5 border border-[#DDDBD5] bg-white text-neutral-900 text-[15px] rounded-lg focus:border-brand-500 focus:outline-none cursor-pointer">
               <option value="news" selected>뉴스</option>
               <option value="blog">블로그</option>
             </select>
@@ -242,8 +244,19 @@
       </div>
 
       <div class="actions">
-        <button class="secondary" onclick="resetForm()">초기화</button>
-        <button class="primary" onclick="copyCode()">코드 복사</button>
+        <button class="px-6 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm md:text-base font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none" onclick="copyCode()">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          코드 복사
+        </button>
+        <a href="https://sheets.google.com" target="_blank" class="px-6 h-11 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-sm md:text-base font-bold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none" style="text-decoration: none;">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM9 17H7V15H9V17ZM9 13H7V11H9V13ZM9 9H7V7H9V9ZM17 17H11V15H17V17ZM17 13H11V11H17V13ZM17 9H11V7H17V9Z" fill="#0F9D58"/>
+          </svg>
+          구글 시트 이동
+        </a>
       </div>
       <p class="notice">복사한 코드는 Google 스프레드시트의 <strong>확장 프로그램 → Apps Script</strong>에 붙여 넣어 사용할 수 있습니다.</p>
     </section>
@@ -263,6 +276,7 @@
         const input = document.createElement("input");
         input.type = "text";
         input.placeholder = `키워드 ${i} 입력`;
+        input.className = "w-full px-4 py-2.5 border border-[#DDDBD5] bg-white text-neutral-900 text-[15px] rounded-lg focus:border-brand-500 focus:outline-none placeholder-neutral-400";
         input.value = state[i] || "";
         input.addEventListener("input", (e) => state[i] = e.target.value);
         container.appendChild(input);
@@ -360,8 +374,8 @@ function stripHtml(html) {
     }
 
     function resetForm() {
-      $("clientId").value = "YOUR_CLIENT_ID";
-      $("clientSecret").value = "YOUR_CLIENT_SECRET";
+      $("clientId").value = "";
+      $("clientSecret").value = "";
       $("displayCount").value = "20";
       $("keywordCount").value = "2";
       $("sortType").value = "sim";

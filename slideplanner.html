@@ -65,16 +65,16 @@
       background: #B0AEA8;
     }
     .steps{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px;align-items:stretch}
-    .card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:18px;min-height:710px;overflow:hidden}
+    .card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:18px;min-height:auto;overflow:hidden}
     .card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:24px 24px 20px;background:#EAF2EE;border-bottom:1px solid var(--line)}
-    .card-head h2{font-size:20px;font-weight:900;color:var(--green);letter-spacing:-.35px;margin-bottom:5px}
+    .card-head h2{font-size:16px;font-weight:900;color:var(--text);letter-spacing:-.35px;margin-bottom:5px}
     .card-head p{color:var(--muted);font-size:13px;line-height:1.45}
     .badge{background:#FFFFFF;color:var(--green);border:1px solid rgba(42,107,82,0.18);border-radius:999px;padding:6px 12px;white-space:nowrap;font:700 10px "IBM Plex Mono",monospace}
     .card-body{display:flex;flex-direction:column;flex-grow:1;padding:24px;background:#FFFFFF}
     .field{margin-bottom:16px}
     label{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;font-size:13px;font-weight:800}
     label small{font-size:11px;color:var(--muted);font-weight:500}
-    textarea{display:block;width:100%;border:1px solid var(--line);border-radius:11px;padding:14px;background:#fff;color:var(--text);font:13px/1.65 "Pretendard",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;outline:none;resize:none}
+    textarea{display:block;width:100%;border:1px solid var(--line);border-radius:11px;padding:16px;background:#fff;color:#333330;font:16px/1.65 "Pretendard",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;outline:none;resize:none}
     textarea:focus{border-color:var(--green);box-shadow:0 0 0 2px rgba(42,107,82,.1)}
     .request{height:315px;background:#FCFCFA}
     .result{height:225px;resize:vertical}
@@ -82,7 +82,7 @@
     .copy:hover{background:var(--green-dark)}
     .info{margin-top:auto;background:var(--panel);border:1px solid #CFE5DA;border-radius:12px;padding:14px;color:var(--green);font-size:12px;line-height:1.6}
     .reset-row{display:flex;justify-content:flex-end;margin-top:14px}
-    .reset{height:40px;padding:0 14px;border:1px solid var(--line);border-radius:9px;background:var(--soft);color:var(--text);font:800 12px "Pretendard",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer}
+    .reset{height:40px;padding:0 14px;border:1px solid var(--line);border-radius:9px;background:var(--soft);color:var(--text);font:800 12px "Pretendard",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px}
     .reset:hover{background:#EAE8E3}
     .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);opacity:0;background:#1A1A18;color:#fff;border-radius:999px;padding:12px 18px;font-size:13px;font-weight:700;transition:.25s;z-index:20;box-shadow:0 4px 12px rgba(0,0,0,0.15)}
     .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -98,11 +98,10 @@
     class="flex-shrink-0 w-full lg:w-64 bg-white border-b lg:border-b-0 lg:border-r border-[#DDDBD5] flex flex-col lg:h-screen pt-[calc(5px+1.25rem)] lg:pt-[calc(5px+1.5rem)]">
     <!-- Brand block -->
     <div class="px-5 pb-4 mb-2 border-b border-[#DDDBD5]">
-      <a class="inline-flex bg-brand-500 hover:bg-brand-600 text-white font-mono text-[11px] font-bold tracking-wider px-3 py-1.5 rounded-full transition-colors uppercase"
-        href="https://workingai.kr" target="_blank">
-        WORKING AI
+      <a class="font-sans text-xl font-extrabold tracking-tight hover:opacity-80 transition-opacity"
+        href="https://workingai.kr" target="_blank" style="text-decoration: none;">
+        <span class="text-neutral-900">Working</span> <span class="text-brand-500">AI</span>
       </a>
-      <p class="text-xs text-[#605E59] mt-2.5 font-medium">사내 AI 실습</p>
     </div>
 
     <!-- Nav list -->
@@ -137,72 +136,108 @@
   </aside>
 
   <!-- ===== Main Content ===== -->
-  <main class="flex-1 flex flex-col overflow-hidden pt-8 lg:pt-10 pb-8 px-4 md:px-8 lg:px-10">
+  <main class="flex-1 flex flex-col overflow-y-auto pt-8 lg:pt-10 pb-8 px-4 md:px-8 lg:px-10">
     <!-- Header Area -->
     <header class="mb-4 flex-shrink-0">
       <p class="font-mono text-[11px] font-bold tracking-wider uppercase text-brand-500 mb-1.5">NOTEBOOKLM SLIDE PLANNER</p>
       <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight leading-tight text-neutral-900">
-        슬라이드 플래너
+        슬라이드 플래너(노트북LM)
       </h1>
     </header>
 
-    <section class="border border-[#DDDBD5] rounded-2xl p-5 md:p-6 bg-white shadow-sm flex-1 flex flex-col overflow-y-auto">
+    <section class="border border-[#DDDBD5] rounded-2xl p-5 md:p-6 bg-white shadow-sm flex flex-col">
+      <!-- Card Head -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DDDBD5] pb-4 mb-4 flex-shrink-0">
+        <div>
+          <h2 class="text-lg md:text-xl font-extrabold text-neutral-900">노트북LM에서 목차 및 디자인 가이드 생성</h2>
+          <p class="text-xs md:text-sm text-[#605E59] mt-1">각 단계의 요청문을 노트북LM에 입력한 후, 반환된 목차 구성안과 디자인 가이드를 기록해 합쳐진 프롬프트를 완성합니다.</p>
+        </div>
+      </div>
+
       <section class="steps">
     <article class="card">
       <div class="card-head">
         <div>
-          <h2>Step 1. 내용 구성 설계</h2>
+          <h2>📝 Step 1. 내용 구성 설계</h2>
           <p>내용 소스를 토대로 경영진 보고용 슬라이드 구성안을 만듭니다.</p>
         </div>
-        <span class="badge">CONTENT</span>
+        <button class="px-4 h-9 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs md:text-sm font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none" onclick="copyText('contentRequest','목차 요청문이 복사되었습니다.')">
+          <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          목차 요청문 복사
+        </button>
       </div>
 
       <div class="card-body">
-        <div class="field">
+        <div class="field" style="display: none;">
           <label for="contentRequest">NotebookLM에 넣을 요청문</label>
           <textarea id="contentRequest" class="request" readonly></textarea>
         </div>
-        <button class="copy" onclick="copyText('contentRequest','Step 1 요청문이 복사되었습니다.')">Step 1 요청문 복사</button>
 
         <div class="field" style="margin-top:18px">
           <label for="contentResult">생성된 목차 / 구성안 <small>NotebookLM 결과 붙여 넣기</small></label>
-          <textarea id="contentResult" class="result" placeholder="NotebookLM이 생성한 슬라이드 목차와 구성안을 붙여 넣어주세요."></textarea>
+          <textarea id="contentResult" class="w-full p-4 border border-[#DDDBD5] bg-white text-[#333330] text-base rounded-lg focus:border-brand-500 focus:outline-none resize-none h-56" placeholder="NotebookLM이 생성한 슬라이드 목차와 구성안을 붙여 넣어주세요."></textarea>
         </div>
 
-        <div class="info">생성한 구성안은 다음 단계의 슬라이드 제작 프롬프트를 작성할 때 활용할 수 있습니다.</div>
-        <div class="reset-row"><button class="reset" onclick="resetField('contentResult')">입력 내용 초기화</button></div>
+        <div class="reset-row">
+          <button class="reset" onclick="resetField('contentResult')">
+            <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path>
+            </svg>
+            입력 내용 초기화
+          </button>
+        </div>
       </div>
     </article>
 
     <article class="card">
       <div class="card-head">
         <div>
-          <h2>Step 2. 디자인 가이드 설계</h2>
+          <h2>🎨 Step 2. 디자인 가이드 설계</h2>
           <p>디자인 템플릿을 분석해 슬라이드 제작에 적용할 기준을 만듭니다.</p>
         </div>
-        <span class="badge">DESIGN</span>
+        <button class="px-4 h-9 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs md:text-sm font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none" onclick="copyText('designRequest','디자인 요청문이 복사되었습니다.')">
+          <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          디자인 요청문 복사
+        </button>
       </div>
 
       <div class="card-body">
-        <div class="field">
+        <div class="field" style="display: none;">
           <label for="designRequest">NotebookLM에 넣을 요청문</label>
           <textarea id="designRequest" class="request" readonly></textarea>
         </div>
-        <button class="copy" onclick="copyText('designRequest','Step 2 요청문이 복사되었습니다.')">Step 2 요청문 복사</button>
 
         <div class="field" style="margin-top:18px">
           <label for="designResult">생성된 디자인 가이드 <small>NotebookLM 결과 붙여 넣기</small></label>
-          <textarea id="designResult" class="result" placeholder="NotebookLM이 분석한 디자인 가이드를 붙여 넣어주세요."></textarea>
+          <textarea id="designResult" class="w-full p-4 border border-[#DDDBD5] bg-white text-[#333330] text-base rounded-lg focus:border-brand-500 focus:outline-none resize-none h-56" placeholder="NotebookLM이 분석한 디자인 가이드를 붙여 넣어주세요."></textarea>
         </div>
 
-        <div class="info">생성한 디자인 가이드는 슬라이드 생성 시 글꼴, 색상, 레이아웃, 시각화 기준으로 활용할 수 있습니다.</div>
-        <div class="reset-row"><button class="reset" onclick="resetField('designResult')">입력 내용 초기화</button></div>
+        <div class="reset-row">
+          <button class="reset" onclick="resetField('designResult')">
+            <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path>
+            </svg>
+            입력 내용 초기화
+          </button>
+        </div>
       </div>
     </article>
   </section>
 
   <section style="display:flex;justify-content:center;margin-top:28px;">
-    <button class="copy" style="width:auto;padding:0 24px;height:46px;font-size:14px;" onclick="copyBothResults()">목차 및 디자인 가이드 복사</button>
+    <button class="px-6 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm md:text-base font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none" onclick="copyBothResults()">
+      <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      목차 및 디자인 가이드 복사
+    </button>
   </section>
   </section>
 </main>
