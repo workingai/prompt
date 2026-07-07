@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>노트북LM 슬라이드 플래너</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Pretendard Font -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+  <!-- IBM Plex Mono Font -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#F2F8F5',
+              100: '#E6F2ED',
+              500: '#2A6B52',
+              600: '#1D4E3A',
+            },
+            neutral: {
+              50: '#F8F7F4',
+              100: '#F2F1EE',
+              200: '#E5E3DF',
+              300: '#DDDBD5',
+              400: '#B0AEA8',
+              500: '#8A8881',
+              600: '#605E59',
+              900: '#1A1A18',
+            }
+          },
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['IBM Plex Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root{
+      --bg:#F2F1EE; --card:#FFFFFF; --line:#DDDBD5; --green:#2A6B52; --green-dark:#1D4E3A;
+      --panel:#E6F2ED; --text:#1A1A18; --muted:#77736B; --soft:#F8F7F4;
+    }
+    body {
+      font-family: 'Pretendard', -apple-system, sans-serif;
+      background-color: #F2F1EE;
+    }
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F2F1EE;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #DDDBD5;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #B0AEA8;
+    }
+    .steps{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px;align-items:stretch}
+    .card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:18px;min-height:auto;overflow:hidden}
+    .card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:24px 24px 20px;background:#EAF2EE;border-bottom:1px solid var(--line)}
+    .card-head h2{font-size:16px;font-weight:900;color:var(--text);letter-spacing:-.35px;margin-bottom:5px}
+    .card-head p{color:var(--muted);font-size:13px;line-height:1.45}
+    .badge{background:#FFFFFF;color:var(--green);border:1px solid rgba(42,107,82,0.18);border-radius:999px;padding:6px 12px;white-space:nowrap;font:700 10px "IBM Plex Mono",monospace}
+    .card-body{display:flex;flex-direction:column;flex-grow:1;padding:24px;background:#FFFFFF}
+    .field{margin-bottom:16px}
+    label{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;font-size:13px;font-weight:800}
+    label small{font-size:11px;color:var(--muted);font-weight:500}
+    textarea{display:block;width:100%;border:1px solid var(--line);border-radius:11px;padding:16px;background:#fff;color:#333330;font:16px/1.65 "Pretendard",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;outline:none;resize:none}
+    textarea:focus{border-color:var(--green);box-shadow:0 0 0 2px rgba(42,107,82,.1)}
+    .request{height:315px;background:#FCFCFA}
+    .result{height:225px;resize:vertical}
+    .copy{width:166px;height:42px;border:0;border-radius:9px;background:var(--green);color:#fff;font:800 13px "Pretendard",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center}
+    .copy:hover{background:var(--green-dark)}
+    .info{margin-top:auto;background:var(--panel);border:1px solid #CFE5DA;border-radius:12px;padding:14px;color:var(--green);font-size:12px;line-height:1.6}
+    .reset-row{display:flex;justify-content:flex-end;margin-top:14px}
+    .reset{height:40px;padding:0 14px;border:1px solid var(--line);border-radius:9px;background:var(--soft);color:var(--text);font:800 12px "Pretendard",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+    .reset:hover{background:#EAE8E3}
+    .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);opacity:0;background:#1A1A18;color:#fff;border-radius:999px;padding:12px 18px;font-size:13px;font-weight:700;transition:.25s;z-index:20;box-shadow:0 4px 12px rgba(0,0,0,0.15)}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    @media(max-width:880px){.steps{grid-template-columns:1fr}.card{min-height:auto}.request{height:270px}.result{height:220px}}
+  </style>
+</head>
+<body class="min-h-screen text-neutral-900 antialiased flex flex-col lg:flex-row lg:h-screen lg:overflow-hidden">
+  <!-- Top brand bar -->
+  <div class="fixed top-0 left-0 w-full h-[5px] bg-brand-500 z-50"></div>
+
+  <!-- ===== Left Sidebar Navigation ===== -->
+  <aside
+    class="flex-shrink-0 w-full lg:w-64 bg-white border-b lg:border-b-0 lg:border-r border-[#DDDBD5] flex flex-col lg:h-screen pt-[calc(5px+1.25rem)] lg:pt-[calc(5px+1.5rem)]">
+    <!-- Brand block -->
+    <div class="px-5 pb-4 mb-2 border-b border-[#DDDBD5]">
+      <a class="font-sans text-xl font-extrabold tracking-tight hover:opacity-80 transition-opacity"
+        href="index.html" style="text-decoration: none;">
+        <span class="text-neutral-900">Working</span> <span class="text-brand-500">AI</span>
+      </a>
+    </div>
+
+    <!-- Nav list -->
+    <p class="hidden lg:block px-5 mb-1.5 text-[11px] font-bold uppercase tracking-wider text-neutral-400">실습 목록</p>
+    <nav class="flex lg:flex-col gap-1 px-3 pb-4 overflow-x-auto lg:overflow-y-auto">
+      <a href="01_wamingup.html"
+        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 whitespace-nowrap transition-colors">
+        <span class="text-lg leading-none">🔥</span>
+        <span>워밍업 실습</span>
+      </a>
+      <a href="02_prompt.html"
+        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 whitespace-nowrap transition-colors">
+        <span class="text-lg leading-none">🧩</span>
+        <span>프롬프트 빌더</span>
+      </a>
+      <a href="03_apps_scrpt.html"
+        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 whitespace-nowrap transition-colors">
+        <span class="text-lg leading-none">🤖</span>
+        <span>앱스스크립트 자동화</span>
+      </a>
+      <a href="04_notebooklm.html"
+        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold text-brand-600 bg-brand-100 whitespace-nowrap transition-colors">
+        <span class="text-lg leading-none">🖼️</span>
+        <span>노트북LM</span>
+      </a>
+      <a href="05_visualcomm.html"
+        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 whitespace-nowrap transition-colors">
+        <span class="text-lg leading-none">📊</span>
+        <span>문서 시각화</span>
+      </a>
+      <a href="06_aivideo.html"
+        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 whitespace-nowrap transition-colors">
+        <span class="text-lg leading-none">🎬</span>
+        <span>AI 영상 제작</span>
+      </a>
+      <a href="07_aiagent.html"
+        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 whitespace-nowrap transition-colors">
+        <span class="text-lg leading-none">🎨</span>
+        <span>AI 에이전트</span>
+      </a>
+    </nav>
+    <!-- Sidebar Footer (AI Links) -->
+    <div class="mt-auto border-t border-[#DDDBD5] p-3 lg:p-4 flex justify-around items-center bg-white flex-shrink-0">
+      <!-- ChatGPT -->
+      <div class="relative group">
+        <a href="https://chatgpt.com/" target="_blank" class="p-2 rounded-lg hover:bg-neutral-50 flex items-center justify-center transition-colors" style="text-decoration: none;">
+          <svg class="w-5 h-5 text-neutral-500 hover:text-neutral-900 transition-colors" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21.3 10.3a3.5 3.5 0 0 0-1.8-2.6 3.7 3.7 0 0 0-.2-3.8 3.5 3.5 0 0 0-3.3-1.6 3.6 3.6 0 0 0-3-1.5c-1.5 0-2.8.9-3.3 2.2a3.6 3.6 0 0 0-3.1.5c-1.2 1-1.7 2.5-1.3 4a3.5 3.5 0 0 0-2 3c0 1.5.8 2.8 2 3.4a3.6 3.6 0 0 0 .2 3.7 3.5 3.5 0 0 0 3.3 1.7 3.6 3.6 0 0 0 3 1.5c1.5 0 2.8-.9 3.3-2.2a3.6 3.6 0 0 0 3.1-.5c1.2-1 1.7-2.5 1.3-4a3.5 3.5 0 0 0 2-3c0-1.6-.7-2.9-1.9-3.5zm-8.5 9a1.7 1.7 0 0 1-1.5-1.1c.1 0 .2-.1.3-.1l3.5-2 1.8 1a.9.9 0 0 0 .9-1.5l-1.8-1 1.7-1a1.8 1.8 0 0 0 .7-2.4l-1.7-3a1.8 1.8 0 0 0-2.4-.7l-3.5 2V5.7a1.8 1.8 0 0 0-3.6 0v2.7l-1.8-1a1.8 1.8 0 0 0-2.4.7A1.8 1.8 0 0 0 4.4 11l1.8 1-1.7 1a1.8 1.8 0 0 0-.7 2.4l1.7 3a1.8 1.8 0 0 0 2.4.7l3.5-2v2.7a1.8 1.8 0 0 0 3.6 0v-2.7l1.8 1a1.8 1.8 0 0 0 2.4-.7 1.8 1.8 0 0 0-.7-2.4l-1.8-1z"/>
+          </svg>
+        </a>
+        <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2.5 py-1.5 text-[11px] font-bold text-white bg-neutral-900 rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-lg z-50">
+          챗GPT
+        </div>
+      </div>
+
+      <!-- Gemini -->
+      <div class="relative group">
+        <a href="https://gemini.google.com/" target="_blank" class="p-2 rounded-lg hover:bg-neutral-50 flex items-center justify-center transition-colors" style="text-decoration: none;">
+          <svg class="w-5 h-5 text-neutral-500 hover:text-neutral-900 transition-colors" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C12 7.5 16.5 12 22 12C16.5 12 12 16.5 12 22C12 16.5 7.5 12 2 12C7.5 12 12 7.5 12 2Z"/>
+          </svg>
+        </a>
+        <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2.5 py-1.5 text-[11px] font-bold text-white bg-neutral-900 rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-lg z-50">
+          제미나이
+        </div>
+      </div>
+
+      <!-- NotebookLM -->
+      <div class="relative group">
+        <a href="https://notebooklm.google/" target="_blank" class="p-2 rounded-lg hover:bg-neutral-50 flex items-center justify-center transition-colors" style="text-decoration: none;">
+          <svg class="w-5 h-5 text-neutral-500 hover:text-neutral-900 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="butt">
+            <path d="M3 21a9 9 0 0 1 18 0"/>
+            <path d="M7 21a5 5 0 0 1 10 0"/>
+            <path d="M11 21a1 1 0 0 1 2 0"/>
+          </svg>
+        </a>
+        <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2.5 py-1.5 text-[11px] font-bold text-white bg-neutral-900 rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-lg z-50">
+          노트북LM
+        </div>
+      </div>
+
+      <!-- AI Studio -->
+      <div class="relative group">
+        <a href="https://aistudio.google.com/" target="_blank" class="p-2 rounded-lg hover:bg-neutral-50 flex items-center justify-center transition-colors" style="text-decoration: none;">
+          <svg class="w-5 h-5 text-neutral-500 hover:text-neutral-900 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="7.5" cy="15.5" r="5.5"></circle>
+            <path d="M21 2l-9.6 9.6"></path>
+            <path d="M15.5 7.5L20 12"></path>
+            <path d="M18.5 4.5L21.5 7.5"></path>
+          </svg>
+        </a>
+        <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2.5 py-1.5 text-[11px] font-bold text-white bg-neutral-900 rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-lg z-50">
+          Google AI Studio
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== Main Content ===== -->
+  <main class="flex-1 flex flex-col overflow-y-auto pt-8 lg:pt-10 pb-8 px-4 md:px-8 lg:px-10">
+    <!-- Header Area -->
+    <header class="mb-4 flex-shrink-0 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+      <div>
+        <div class="mb-2">
+          <span class="inline-block bg-brand-500 text-white rounded-full px-4 py-1 text-[11.5px] font-mono font-extrabold tracking-wider uppercase">Notebook LM</span>
+        </div>
+        <h1 id="header-title" class="text-2xl md:text-3xl font-extrabold tracking-tight leading-tight text-neutral-900">
+          동영상 오버뷰 만들기
+        </h1>
+      </div>
+      <!-- Navigation buttons in header -->
+      <div class="flex items-center gap-2 flex-shrink-0 mb-1">
+        <button id="btn-tab-1" class="w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-brand-500 text-white border border-brand-500" onclick="showVideoOverview()">
+          1
+        </button>
+        <button id="btn-tab-2" class="w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-white text-brand-500 border border-[#DDDBD5] hover:bg-neutral-50" onclick="showSlidePlanner()">
+          2
+        </button>
+      </div>
+    </header>
+
+    <section class="border border-[#DDDBD5] rounded-2xl p-5 md:p-6 bg-white shadow-sm flex flex-col">
+      <!-- Card Head -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DDDBD5] pb-4 mb-4 flex-shrink-0">
+        <div>
+          <h2 id="tool-title" class="text-lg md:text-xl font-extrabold text-neutral-900">동영상 오버뷰 프롬프트</h2>
+          <p id="tool-desc" class="text-xs md:text-sm text-[#605E59] mt-1">아래 프롬프트를 복사하여 NotebookLM에 입력하면 동영상 오버뷰용 대본 초안이 완성됩니다.</p>
+        </div>
+        <div class="flex items-center gap-2 flex-shrink-0" id="card-links">
+          <a href="https://notebooklm.google/" target="_blank" class="px-4 h-9 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs md:text-sm font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none" style="text-decoration: none;">
+            <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
+            </svg>
+            NotebookLM
+          </a>
+          <a id="shared-notebook-link" href="https://notebooklm.google.com/notebook/853b7038-15e0-41d2-92cd-7db2b17b0622" target="_blank" class="px-4 h-9 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs md:text-sm font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none" style="text-decoration: none;">
+            <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
+            </svg>
+            공유 NotebookLM
+          </a>
+        </div>
+      </div>
+
+      <!-- ================= CONTAINER 1: 동영상 오버뷰 (탭 1) ================= -->
+      <div id="video-overview-container" class="flex flex-col gap-6">
+        <div class="border border-[#CFE5DA] bg-brand-50 rounded-xl p-4 text-brand-600">
+          <h3 class="text-sm font-bold mb-2 flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            실습 포인트
+          </h3>
+          <ul class="list-disc pl-5 text-xs md:text-sm space-y-1.5 text-neutral-700">
+            <li>업로드한 참고용 동영상 내용 소스를 바탕으로 오버뷰 대본의 전체적인 구조를 지시합니다.</li>
+            <li>도입, 본론, 마무리 단계별 요구 정보와 톤앤매너를 지시하여 완성도 높은 보고서 형태로 구성합니다.</li>
+          </ul>
+        </div>
+
+        <div class="flex flex-col flex-1">
+          <div class="flex items-center justify-between mb-2">
+            <label class="text-sm font-extrabold text-neutral-900">실습 프롬프트</label>
+            <button onclick="copyPromptText('prompt-video-overview')" class="px-4 h-9 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs md:text-sm font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none">
+              <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              프롬프트 복사
+            </button>
+          </div>
+          <textarea id="prompt-video-overview" readonly class="w-full p-4 border border-[#DDDBD5] bg-neutral-50 text-[#333330] text-sm md:text-base rounded-lg focus:outline-none resize-none h-64 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">업로드된 자료를 바탕으로
+경영진 보고용 오버뷰를 만들어줘.
+
+도입: 핵심 트렌드와 주요 변화 요인
+본론: 주요 사례와 현황 (수치 포함)
+마무리: 시사점과 향후 방향 제언
+
+톤: 전문적이고 간결한 경영진 보고 스타일</textarea>
+        </div>
+      </div>
+
+      <!-- ================= CONTAINER 2: 슬라이드 플래너 (탭 2) ================= -->
+      <div id="slide-planner-container" class="hidden flex flex-col">
+        <div class="steps-wrapper">
+          <section class="steps">
+    <article class="card">
+      <div class="card-head">
+        <div>
+          <h2>📝 Step 1. 내용 구성 설계</h2>
+          <p>내용 소스를 토대로 경영진 보고용 슬라이드 구성안을 만듭니다.</p>
+        </div>
+        <button class="px-4 h-9 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs md:text-sm font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none" onclick="copyText('contentRequest','목차 요청문이 복사되었습니다.')">
+          <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          목차 요청문 복사
+        </button>
+      </div>
+
+      <div class="card-body">
+        <div class="field" style="display: none;">
+          <label for="contentRequest">NotebookLM에 넣을 요청문</label>
+          <textarea id="contentRequest" class="request" readonly></textarea>
+        </div>
+
+        <div class="field" style="margin-top:18px">
+          <label for="contentResult">생성된 목차 / 구성안 <small>NotebookLM 결과 붙여 넣기</small></label>
+          <textarea id="contentResult" class="w-full p-4 border border-[#DDDBD5] bg-white text-[#333330] text-base rounded-lg focus:border-brand-500 focus:outline-none resize-none h-56" placeholder="NotebookLM이 생성한 슬라이드 목차와 구성안을 붙여 넣어주세요."></textarea>
+        </div>
+
+        <div class="reset-row">
+          <button class="reset" onclick="resetField('contentResult')">
+            <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path>
+            </svg>
+            입력 내용 초기화
+          </button>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div>
+          <h2>🎨 Step 2. 디자인 가이드 설계</h2>
+          <p>디자인 템플릿을 분석해 슬라이드 제작에 적용할 기준을 만듭니다.</p>
+        </div>
+        <button class="px-4 h-9 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs md:text-sm font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none" onclick="copyText('designRequest','디자인 요청문이 복사되었습니다.')">
+          <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          디자인 요청문 복사
+        </button>
+      </div>
+
+      <div class="card-body">
+        <div class="field" style="display: none;">
+          <label for="designRequest">NotebookLM에 넣을 요청문</label>
+          <textarea id="designRequest" class="request" readonly></textarea>
+        </div>
+
+        <div class="field" style="margin-top:18px">
+          <label for="designResult">생성된 디자인 가이드 <small>NotebookLM 결과 붙여 넣기</small></label>
+          <textarea id="designResult" class="w-full p-4 border border-[#DDDBD5] bg-white text-[#333330] text-base rounded-lg focus:border-brand-500 focus:outline-none resize-none h-56" placeholder="NotebookLM이 분석한 디자인 가이드를 붙여 넣어주세요."></textarea>
+        </div>
+
+        <div class="reset-row" style="gap: 8px;">
+          <a href="download/master_template.pdf" download class="reset" style="text-decoration: none;">
+            <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path>
+            </svg>
+            템플릿 다운로드
+          </a>
+          <button class="reset" onclick="resetField('designResult')">
+            <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path>
+            </svg>
+            입력 내용 초기화
+          </button>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section style="display:flex;justify-content:center;margin-top:28px;gap:12px;">
+    <button class="px-6 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm md:text-base font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none" onclick="copyBothResults()">
+      <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      목차 및 디자인 가이드 복사
+    </button>
+    <a href="https://www.canva.com/" target="_blank" class="px-6 h-11 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-sm md:text-base font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none" style="text-decoration: none;">
+      <svg class="w-4 h-4 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
+      </svg>
+      Canva로 이동
+    </a>
+  </section>
+      </div>
+  </section>
+</main>
+<div id="toast" class="toast">복사되었습니다.</div>
+
+<script>
+const contentRequest = `업로드된 내용 소스를 토대로, 경영진 보고용 슬라이드 구성안을 만들어.
+아래 형식으로 작성해줘.
+
+[전체 구성]
+- 전체 슬라이드 수:
+- 핵심 강조 사항 한 줄 요약:
+
+[슬라이드별 구성안]
+1페이지 — 표지 + Executive Summary
+- 타이틀:
+- 한 줄 핵심 메시지:
+- 핵심 키워드 3개:
+- 구성 방식:
+
+2페이지 이후 (각 페이지별로 내용 제목 및 핵심 메시지) 
+- 슬라이드 제목:
+- 핵심 메시지:
+- 포함할 핵심 내용 또는 수치:
+- 추천 시각화 방식:
+- 하단 출처 또는 주석 필요 여부:
+
+구성 원칙:
+- 표지는 주제, 기준 시점, 핵심 메시지만 간결하게 제시한다.
+- 정량 성과가 있는 사례는 표보다 차트·비교 그래프·숫자 카드로 제안한다.
+- 인사이트는 3개 이내의 카드형 구조로 정리한다.
+- 실행 과제는 우선순위 매트릭스, 액션 카드, 로드맵 중 적합한 형식으로 제안한다.
+- 마지막 페이지는 실행계획 또는 핵심 메시지 재요약으로 마무리한다.
+- 마크다운 사용하지 말 것.`;
+
+const designRequest = `업로드된 디자인 템플릿을분석해, 슬라이드 제작 시 적용할 수 있는 간결한 디자인 가이드를 작성해줘.
+아래 형식으로 출력해줘.
+
+[슬라이드 디자인 가이드]
+1. 전체 톤앤매너
+2. 색상 규칙
+3. 타이포그래피 규칙
+4. 레이아웃 규칙
+5. 시각화 규칙
+6. 반드시 지킬 것 / 피할 것
+
+특히 아래 원칙을 반영해줘.
+- 폰트는 템플릿의 기준을 따른다. 
+- 강조는 색상과 볼드로만 처리한다.
+- 표를 그대로 옮기기보다 핵심 숫자와 메시지를 시각화한다.
+- 콘텐츠 슬라이드는 과도한 장식 없이 여백과 정렬을 우선한다.`;
+
+document.getElementById('contentRequest').value = contentRequest;
+document.getElementById('designRequest').value = designRequest;
+
+// iframe 내부에서도 안전하고 안정적으로 복사할 수 있는 헬퍼 함수
+function executeCopy(text, successMessage) {
+  const textArea = document.createElement('textarea');
+  textArea.value = text;
+  textArea.style.position = 'fixed';
+  textArea.style.top = '0';
+  textArea.style.left = '0';
+  textArea.style.opacity = '0';
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  
+  try {
+    const successful = document.execCommand('copy');
+    if (successful) {
+      showToast(successMessage);
+    } else {
+      showToast('복사에 실패했습니다. 텍스트 영역을 직접 복사해 주세요.');
+    }
+  } catch (err) {
+    showToast('복사 기능이 지원되지 않는 브라우저입니다.');
+  }
+  document.body.removeChild(textArea);
+}
+
+function copyText(id, message) {
+  const text = document.getElementById(id).value;
+  executeCopy(text, message);
+}
+
+function copyBothResults() {
+  const content = document.getElementById('contentResult').value.trim();
+  const design = document.getElementById('designResult').value.trim();
+
+  if (!content && !design) {
+    showToast('복사할 목차 또는 디자인 가이드를 먼저 입력해 주세요.');
+    return;
+  }
+
+  const combined = `업로드된 내용 소스와 디자인 템플릿을 바탕으로, 아래의 내용 구성안과 디자인 가이드를 모두 반영해 발표용 슬라이드를 작성해줘.
+
+[내용 구성안]
+${content || '입력된 내용이 없습니다.'}
+
+[디자인 가이드]
+${design || '입력된 내용이 없습니다.'}`;
+
+  executeCopy(combined, '목차 및 디자인 가이드가 복사되었습니다.');
+}
+
+function resetField(id) {
+  document.getElementById(id).value = '';
+  showToast('입력 내용이 초기화되었습니다.');
+}
+
+let timer;
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  clearTimeout(timer);
+  toast.classList.add('show');
+  timer = setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+// Navigation / Toggle System
+function showVideoOverview() {
+  // Show container
+  document.getElementById('video-overview-container').classList.remove('hidden');
+  document.getElementById('slide-planner-container').classList.add('hidden');
+  
+  // Update header
+  document.getElementById('header-title').textContent = "동영상 오버뷰 만들기";
+  document.getElementById('tool-title').textContent = "동영상 오버뷰 프롬프트";
+  document.getElementById('tool-desc').textContent = "아래 프롬프트를 복사하여 NotebookLM에 입력하면 동영상 오버뷰용 대본 초안이 완성됩니다.";
+  
+  // Update toggle tab button classes
+  const tab1 = document.getElementById('btn-tab-1');
+  const tab2 = document.getElementById('btn-tab-2');
+  tab1.className = "w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-brand-500 text-white border border-brand-500";
+  tab2.className = "w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-white text-brand-500 border border-[#DDDBD5] hover:bg-neutral-50";
+
+  // Hide shared-notebook-link on tab 1
+  document.getElementById('shared-notebook-link').classList.add('hidden');
+}
+
+function showSlidePlanner() {
+  // Show container
+  document.getElementById('video-overview-container').classList.add('hidden');
+  document.getElementById('slide-planner-container').classList.remove('hidden');
+  
+  // Update header
+  document.getElementById('header-title').textContent = "슬라이드 플래너(노트북LM)";
+  document.getElementById('tool-title').textContent = "노트북LM에서 목차 및 디자인 가이드 생성";
+  document.getElementById('tool-desc').textContent = "각 단계의 요청문을 노트북LM에 입력한 후, 반환된 목차 구성안과 디자인 가이드를 기록해 합쳐진 프롬프트를 완성합니다.";
+  
+  // Update toggle tab button classes
+  const tab1 = document.getElementById('btn-tab-1');
+  const tab2 = document.getElementById('btn-tab-2');
+  tab1.className = "w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-white text-brand-500 border border-[#DDDBD5] hover:bg-neutral-50";
+  tab2.className = "w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-brand-500 text-white border border-brand-500";
+
+  // Show shared-notebook-link on tab 2
+  document.getElementById('shared-notebook-link').classList.remove('hidden');
+}
+
+function copyPromptText(id) {
+  const text = document.getElementById(id).value;
+  executeCopy(text, "프롬프트가 복사되었습니다.");
+}
+</script>
+</body>
+</html>
