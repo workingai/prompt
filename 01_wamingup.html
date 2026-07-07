@@ -187,7 +187,7 @@
         <span class="inline-block bg-brand-500 text-white rounded-full px-4 py-1 text-[11.5px] font-mono font-extrabold tracking-wider uppercase">Warming-Up</span>
       </div>
       <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight leading-tight text-neutral-900">
-        워밍업 실습 도구
+        간단한 실습을 진행합니다
       </h1>
     </header>
 
@@ -200,8 +200,8 @@
         </div>
         <div class="flex-shrink-0">
           <select id="practice-select" onchange="changePractice(this.value)" class="text-base font-bold border border-[#DDDBD5] bg-white text-neutral-700 rounded-lg px-4 py-2.5 w-full sm:w-80 focus:border-brand-500 focus:outline-none cursor-pointer">
-            <option value="chatgpt">실습 ① ChatGPT — 이미지 생성</option>
-            <option value="gemini">실습 ② Gemini — Canvas 웹앱 제작</option>
+            <option value="chatgpt">이미지 생성</option>
+            <option value="gemini">업무용 도구 제작</option>
           </select>
         </div>
       </div>
@@ -227,36 +227,25 @@
             </div>
           </div>
 
-          <!-- 실습 포인트 -->
-          <div class="border border-[#CFE5DA] bg-brand-50 rounded-xl p-4 text-brand-600">
-            <h3 class="text-sm font-bold mb-2 flex items-center gap-1.5">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              실습 포인트
-            </h3>
-            <ul class="list-disc pl-5 text-xs md:text-sm space-y-1.5 text-neutral-700">
-              <li>AI가 레시피를 직접 조사해서 인포그래픽까지 한 번에 완성합니다.</li>
-              <li>스타일·배경·톤을 구체적으로 지정할수록 결과가 정교해집니다.</li>
-            </ul>
-          </div>
-
           <!-- 실습 프롬프트 -->
-          <div class="flex flex-col flex-1">
-            <div class="flex items-center justify-between mb-2">
-              <label class="text-sm font-extrabold text-neutral-900">실습 프롬프트</label>
-              <button onclick="copyPrompt('prompt-chatgpt')" class="px-4 h-9 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs md:text-sm font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none">
-                <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <section class="flex flex-col border border-[#DDDBD5] rounded-xl bg-brand-100 overflow-hidden shadow-xs">
+            <div class="p-4 pb-2.5 flex-shrink-0 bg-brand-100">
+              <strong class="block text-neutral-900 text-base font-extrabold mb-1">✍️ 이미지 생성 프롬프트</strong>
+              <span class="block text-[#605E59] text-xs leading-tight">아래 지시 사항을 활용해 이미지를 만듭니다. (수정 가능)</span>
+            </div>
+            <textarea id="prompt-chatgpt" class="w-full p-4 border-t border-b border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-sm md:text-base leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none h-48 md:h-64 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">스프링 노트 배경 위에 아기자기한 손그림 두들 스타일로 그려진 두바이쫀득쿠키의 인포그래픽을 그려줘.
+전체적인 스타일은 검정색 라인 드로잉에 부드러운 파스텔 톤으로 채색된 귀엽고 포근한 느낌이어야 해.
+실제 레시피는 검색 후 조사해서 만들어줘.</textarea>
+            <div class="p-4 bg-white flex justify-end">
+              <button onclick="copyPrompt('prompt-chatgpt')" class="px-6 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm md:text-base font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
                   <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
                 프롬프트 복사
               </button>
             </div>
-            <textarea id="prompt-chatgpt" readonly class="w-full p-4 border border-[#DDDBD5] bg-neutral-50 text-[#333330] text-sm md:text-base rounded-lg focus:outline-none resize-none h-48 md:h-64 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">스프링 노트 배경 위에 아기자기한 손그림 두들 스타일로 그려진 두바이쫀득쿠키의 인포그래픽을 그려줘.
-전체적인 스타일은 검정색 라인 드로잉에 부드러운 파스텔 톤으로 채색된 귀엽고 포근한 느낌이어야 해.
-실제 레시피는 검색 후 조사해서 만들어줘.</textarea>
-          </div>
+          </section>
         </div>
 
         <!-- =================== 실습 2. Gemini Canvas 웹앱 제작 =================== -->
@@ -277,33 +266,13 @@
             </div>
           </div>
 
-          <!-- 실습 포인트 -->
-          <div class="border border-[#CFE5DA] bg-brand-50 rounded-xl p-4 text-brand-600">
-            <h3 class="text-sm font-bold mb-2 flex items-center gap-1.5">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              실습 포인트
-            </h3>
-            <ul class="list-disc pl-5 text-xs md:text-sm space-y-1.5 text-neutral-700">
-              <li>Canvas 모드에서 코드 없이 대화로 웹앱을 완성합니다.</li>
-              <li>"탭 2 색상을 파란색으로 바꿔줘" 같은 추가 요청으로 즉시 수정이 가능합니다.</li>
-            </ul>
-          </div>
-
           <!-- 실습 프롬프트 -->
-          <div class="flex flex-col flex-1">
-            <div class="flex items-center justify-between mb-2">
-              <label class="text-sm font-extrabold text-neutral-900">실습 프롬프트</label>
-              <button onclick="copyPrompt('prompt-gemini')" class="px-4 h-9 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs md:text-sm font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none">
-                <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
-                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-                프롬프트 복사
-              </button>
+          <section class="flex flex-col border border-[#DDDBD5] rounded-xl bg-brand-100 overflow-hidden shadow-xs">
+            <div class="p-4 pb-2.5 flex-shrink-0 bg-brand-100">
+              <strong class="block text-neutral-900 text-base font-extrabold mb-1">✍️ 도구 제작 프롬프트</strong>
+              <span class="block text-[#605E59] text-xs leading-tight">아래 지시 사항을 활용해 캔버스 코드를 생성합니다. (수정 가능)</span>
             </div>
-            <textarea id="prompt-gemini" readonly class="w-full p-4 border border-[#DDDBD5] bg-neutral-50 text-[#333330] text-sm md:text-base rounded-lg focus:outline-none resize-none h-64 md:h-80 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">업무에서 자주 쓰는 계산기 3가지를 탭으로 전환할 수 있는 웹앱을 만들어줘.
+            <textarea id="prompt-gemini" class="w-full p-4 border-t border-b border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-sm md:text-base leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none h-64 md:h-80 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">업무에서 자주 쓰는 계산기 3가지를 탭으로 전환할 수 있는 웹앱을 만들어줘.
 
 탭 1. 마진율 계산기
 - 원가, 판매가 입력
@@ -323,7 +292,16 @@
 - 상단에 탭 3개, 클릭하면 해당 계산기로 전환
 - 계산 버튼 클릭 시 결과 표시
 - 결과는 천 단위 구분 쉼표(,) 적용</textarea>
-          </div>
+            <div class="p-4 bg-white flex justify-end">
+              <button onclick="copyPrompt('prompt-gemini')" class="px-6 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm md:text-base font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                프롬프트 복사
+              </button>
+            </div>
+          </section>
         </div>
 
       </div>
