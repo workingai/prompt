@@ -199,6 +199,9 @@
         <button id="btn-tab-2" class="w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-white text-brand-500 border border-[#DDDBD5] hover:bg-neutral-50" onclick="showTab(2)">
           2
         </button>
+        <button id="btn-tab-3" class="w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-white text-brand-500 border border-[#DDDBD5] hover:bg-neutral-50" onclick="showTab(3)">
+          3
+        </button>
       </div>
     </header>
 
@@ -237,7 +240,7 @@
 
       <!-- ================= CONTAINER 2: 이미지 영상화 (탭 2) ================= -->
       <div id="tab-2-container" class="hidden flex flex-col gap-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
           <!-- 카드 1: 시작 이미지 생성 -->
           <section class="flex flex-col border border-[#DDDBD5] rounded-xl bg-brand-100 overflow-hidden shadow-xs">
@@ -246,17 +249,20 @@
                 <strong class="block text-neutral-900 text-sm md:text-base font-extrabold mb-0.5">🎨 시작 이미지 생성</strong>
                 <span class="block text-[#605E59] text-xs leading-tight">영상 시작 시점의 스케치 장면 묘사 (수정 가능)</span>
               </div>
-              <button onclick="copyPrompt('prompt-start-img')" class="px-3 h-8 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1 focus:outline-none flex-shrink-0">
-                <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            </div>
+            <textarea id="prompt-start-img" class="w-full p-4 border-t border-b border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-xs md:text-sm leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none font-mono leading-relaxed" style="height: 352px; font-family: 'Pretendard', sans-serif;">나무 재질의 사무실 책상을 위에서 비스듬히 내려다본 구도.
+책상 정중앙에 놓인 종이 위에 연필로 거칠게 그린 '미래형 스마트 에스프레소 머신'의 디자인 스케치가 있다.
+종이 옆에는 연필 and 지우개가 놓여 있고, 부드러운 아침 햇살이 비치는 16:9 고해상도의 실사 사진 스타일.</textarea>
+            <div class="p-4 bg-white flex justify-end gap-2 border-t border-[#DDDBD5]">
+              <button onclick="resetPrompt('prompt-start-img')" class="px-4 h-11 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-sm font-bold rounded-lg transition-all focus:outline-none">초기화</button>
+              <button onclick="copyPrompt('prompt-start-img')" class="px-5 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
                   <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
-                복사
+                프롬프트 복사
               </button>
             </div>
-            <textarea id="prompt-start-img" class="w-full flex-1 p-4 border-t border-b-0 border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-xs md:text-sm leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none h-44 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">나무 재질의 사무실 책상을 위에서 비스듬히 내려다본 구도.
-책상 정중앙에 놓인 종이 위에 연필로 거칠게 그린 '미래형 스마트 에스프레소 머신'의 디자인 스케치가 있다.
-종이 옆에는 연필 and 지우개가 놓여 있고, 부드러운 아침 햇살이 비치는 16:9 고해상도의 실사 사진 스타일.</textarea>
           </section>
 
           <!-- 카드 2: 종료 이미지 생성 -->
@@ -266,63 +272,71 @@
                 <strong class="block text-neutral-900 text-sm md:text-base font-extrabold mb-0.5">✨ 종료 이미지 생성</strong>
                 <span class="block text-[#605E59] text-xs leading-tight">제품이 실물로 나타난 완성 장면 묘사 (수정 가능)</span>
               </div>
-              <button onclick="copyPrompt('prompt-end-img')" class="px-3 h-8 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1 focus:outline-none flex-shrink-0">
-                <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            </div>
+            <textarea id="prompt-end-img" class="w-full p-4 border-t border-b border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-xs md:text-sm leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none font-mono leading-relaxed" style="height: 352px; font-family: 'Pretendard', sans-serif;">시작 이미지와 동일한 구도의 나무 재질 사무실 책상.
+종이와 연필이 있던 자리에 스케치와 똑같은 디자인의 실제 '미래형 스마트 에스프레소 머신'이 실물로 놓여 있다.
+매트한 BLACK 메탈과 크롬 소재로 마감된 세련된 외형이며, 머신 옆에는 갓 추출된 에스프레소 잔이 놓여 있는 고해상도 제품 광고 사진 스타일.</textarea>
+            <div class="p-4 bg-white flex justify-end gap-2 border-t border-[#DDDBD5]">
+              <button onclick="resetPrompt('prompt-end-img')" class="px-4 h-11 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-sm font-bold rounded-lg transition-all focus:outline-none">초기화</button>
+              <button onclick="copyPrompt('prompt-end-img')" class="px-5 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
                   <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
-                복사
+                프롬프트 복사
               </button>
             </div>
-            <textarea id="prompt-end-img" class="w-full flex-1 p-4 border-t border-b-0 border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-xs md:text-sm leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none h-44 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">시작 이미지와 동일한 구도의 나무 재질 사무실 책상.
-종이와 연필이 있던 자리에 스케치와 똑같은 디자인의 실제 '미래형 스마트 에스프레소 머신'이 실물로 놓여 있다.
-매트한 BLACK 메탈과 크롬 소재로 마감된 세련된 외형이며, 머신 옆에는 갓 추출된 에스프레소 잔이 놓여 있는 고해상도 제품 광고 사진 스타일.</textarea>
           </section>
 
           <!-- 카드 3: Flow 입력 프롬프트 -->
-          <section class="flex flex-col border border-[#DDDBD5] rounded-xl bg-brand-100 overflow-hidden shadow-xs md:col-span-2">
+          <section class="flex flex-col border border-[#DDDBD5] rounded-xl bg-brand-100 overflow-hidden shadow-xs">
             <div class="p-4 pb-2.5 flex items-center justify-between bg-brand-100 flex-shrink-0">
               <div>
                 <strong class="block text-neutral-900 text-sm md:text-base font-extrabold mb-0.5">🌊 Flow 입력 프롬프트</strong>
                 <span class="block text-[#605E59] text-xs leading-tight">스케치가 실물로 모핑되는 트랜지션 연출 효과 (수정 가능)</span>
               </div>
-              <button onclick="copyPrompt('prompt-flow')" class="px-3 h-8 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1 focus:outline-none flex-shrink-0">
-                <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
-                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-                복사
-              </button>
             </div>
-            <textarea id="prompt-flow" class="w-full flex-1 p-4 border-t border-b-0 border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-xs md:text-sm leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none h-44 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">시작 이미지의 연필 스케치 선들이 미세하게 떨리며 황금빛 입자로 변하고, 이 입자들이 모여 실물 제품의 정교한 부품으로 조립되는 모핑 효과를 구현해줘.
+            <textarea id="prompt-flow" class="w-full p-4 border-t border-b border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-xs md:text-sm leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none font-mono leading-relaxed" style="height: 352px; font-family: 'Pretendard', sans-serif;">시작 이미지의 연필 스케치 선들이 미세하게 떨리며 황금빛 입자로 변하고, 이 입자들이 모여 실물 제품의 정교한 부품으로 조립되는 모핑 효과를 구현해줘.
 종이의 질감은 서서히 사라지고 실제 나무 책상의 결이 선명해지며 제품이 완성돼.
 카메라 앵글은 고정된 상태에서 아주 천천히 중앙으로 줌인하며 제품의 금속 광택을 강조해줘.
 
 배경음 및 사운드: 영감을 주는 미니멀한 테크 스타일의 앰비언트 배경음악을 깔아줘.</textarea>
-          </section>
-
-          <!-- 카드 4: 제품 소개 영상 -->
-          <section class="flex flex-col border border-[#DDDBD5] rounded-xl bg-brand-100 overflow-hidden shadow-xs md:col-span-2">
-            <div class="p-4 pb-2.5 flex items-center justify-between bg-brand-100 flex-shrink-0">
-              <div>
-                <strong class="block text-neutral-900 text-sm md:text-base font-extrabold mb-0.5">🎙️ 제품 소개 영상</strong>
-                <span class="block text-[#605E59] text-xs leading-tight">쇼호스트의 제품 소개 대본 (수정 가능)</span>
-              </div>
-              <button onclick="copyPrompt('prompt-pitch')" class="px-3 h-8 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1 focus:outline-none flex-shrink-0">
-                <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <div class="p-4 bg-white flex justify-end gap-2 border-t border-[#DDDBD5]">
+              <button onclick="resetPrompt('prompt-flow')" class="px-4 h-11 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-sm font-bold rounded-lg transition-all focus:outline-none">초기화</button>
+              <button onclick="copyPrompt('prompt-flow')" class="px-5 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
                   <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
-                복사
+                프롬프트 복사
               </button>
             </div>
-            <textarea id="prompt-pitch" class="w-full flex-1 p-4 border-t border-b-0 border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-xs md:text-sm leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none h-36 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">[@캐릭터]가 쇼호스트 스타일로 [@제품]을 소개한다.
-"안녕하세요. 오늘 아주 특별한 제품을 소개시켜 드리려고 합니다.
-강력한 압력과 모던한 디자인을 모두 갖춘 에스프레소 머신인데요.
-지금 바로 경험해 보세요"</textarea>
           </section>
 
         </div>
+      </div>
+
+      <!-- ================= CONTAINER 3: 캐릭터를 활용한 제품 소개 영상 만들기 (탭 3) ================= -->
+      <div id="tab-3-container" class="hidden flex flex-col gap-6">
+        <section class="flex flex-col border border-[#DDDBD5] rounded-xl bg-brand-100 overflow-hidden shadow-xs">
+          <div class="p-4 pb-2.5 flex-shrink-0 bg-brand-100">
+            <strong class="block text-neutral-900 text-base font-extrabold mb-1">🎙️ 제품 소개 영상 프롬프트</strong>
+            <span class="block text-[#605E59] text-xs leading-tight">쇼호스트의 제품 소개 대본 프롬프트입니다. (수정 가능)</span>
+          </div>
+          <textarea id="prompt-pitch" class="w-full p-4 border-t border-b border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-sm md:text-base leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none h-48 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">[@캐릭터]가 쇼호스트 스타일로 [@제품]을 소개한다.
+"안녕하세요. 오늘 아주 특별한 제품을 소개시켜 드리려고 합니다.
+강력한 압력과 모던한 디자인을 모두 갖춘 에스프레소 머신인데요.
+지금 바로 경험해 보세요"</textarea>
+          <div class="p-4 bg-white flex justify-end">
+            <button onclick="copyPrompt('prompt-pitch')" class="px-6 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm md:text-base font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              프롬프트 복사
+            </button>
+          </div>
+        </section>
       </div>
 
     </section>
@@ -334,8 +348,10 @@
     function showTab(num) {
       const tab1Cont = document.getElementById('tab-1-container');
       const tab2Cont = document.getElementById('tab-2-container');
+      const tab3Cont = document.getElementById('tab-3-container');
       const tab1Btn = document.getElementById('btn-tab-1');
       const tab2Btn = document.getElementById('btn-tab-2');
+      const tab3Btn = document.getElementById('btn-tab-3');
       
       const headerTitle = document.getElementById('header-title');
       const toolTitle = document.getElementById('tool-title');
@@ -344,27 +360,45 @@
       if (num === 1) {
         tab1Cont.classList.remove('hidden');
         tab2Cont.classList.add('hidden');
+        tab3Cont.classList.add('hidden');
         
         // Active Button Style
         tab1Btn.className = "w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-brand-500 text-white border border-brand-500";
         tab2Btn.className = "w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-white text-brand-500 border border-[#DDDBD5] hover:bg-neutral-50";
+        tab3Btn.className = "w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-white text-brand-500 border border-[#DDDBD5] hover:bg-neutral-50";
         
         // Headers update
         headerTitle.textContent = "AI활용 가상모델 만들기";
         toolTitle.textContent = "AI활용 가상모델 프롬프트";
         toolDesc.textContent = "아래 프롬프트를 사용하여 원하는 컨셉의 기업 홍보 및 채용 가상 모델 이미지를 생성합니다.";
-      } else {
+      } else if (num === 2) {
         tab1Cont.classList.add('hidden');
         tab2Cont.classList.remove('hidden');
+        tab3Cont.classList.add('hidden');
         
         // Active Button Style
         tab1Btn.className = "w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-white text-brand-500 border border-[#DDDBD5] hover:bg-neutral-50";
         tab2Btn.className = "w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-brand-500 text-white border border-brand-500";
+        tab3Btn.className = "w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-white text-brand-500 border border-[#DDDBD5] hover:bg-neutral-50";
         
         // Headers update
         headerTitle.textContent = "이미지 영상화";
         toolTitle.textContent = "이미지 영상화 기획";
-        toolDesc.textContent = "시작과 종료 이미지 소스, 흐름 제어 및 인물 쇼호스트 대본을 복사하여 고품질 AI 제품 소개 영상을 제작합니다.";
+        toolDesc.textContent = "시작과 종료 이미지 소스 및 흐름 제어 프롬프트를 복사하여 고품질 AI 제품 소개 영상을 제작합니다.";
+      } else {
+        tab1Cont.classList.add('hidden');
+        tab2Cont.classList.add('hidden');
+        tab3Cont.classList.remove('hidden');
+        
+        // Active Button Style
+        tab1Btn.className = "w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-white text-brand-500 border border-[#DDDBD5] hover:bg-neutral-50";
+        tab2Btn.className = "w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-white text-brand-500 border border-[#DDDBD5] hover:bg-neutral-50";
+        tab3Btn.className = "w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-brand-500 text-white border border-brand-500";
+        
+        // Headers update
+        headerTitle.textContent = "캐릭터를 활용한 제품 소개 영상 만들기";
+        toolTitle.textContent = "제품 소개 영상 프롬프트";
+        toolDesc.textContent = "가상 캐릭터와 대본 설정을 바탕으로 매력적인 제품 소개 쇼호스트 영상을 제작합니다.";
       }
     }
 
@@ -393,6 +427,27 @@
         showToast('복사 기능이 지원되지 않는 브라우저입니다.');
       }
       document.body.removeChild(textArea);
+    }
+
+    const DEFAULT_PROMPTS = {
+      'prompt-start-img': `나무 재질의 사무실 책상을 위에서 비스듬히 내려다본 구도.
+책상 정중앙에 놓인 종이 위에 연필로 거칠게 그린 '미래형 스마트 에스프레소 머신'의 디자인 스케치가 있다.
+종이 옆에는 연필 and 지우개가 놓여 있고, 부드러운 아침 햇살이 비치는 16:9 고해상도의 실사 사진 스타일.`,
+      'prompt-end-img': `시작 이미지와 동일한 구도의 나무 재질 사무실 책상.
+종이와 연필이 있던 자리에 스케치와 똑같은 디자인의 실제 '미래형 스마트 에스프레소 머신'이 실물로 놓여 있다.
+매트한 BLACK 메탈과 크롬 소재로 마감된 세련된 외형이며, 머신 옆에는 갓 추출된 에스프레소 잔이 놓여 있는 고해상도 제품 광고 사진 스타일.`,
+      'prompt-flow': `시작 이미지의 연필 스케치 선들이 미세하게 떨리며 황금빛 입자로 변하고, 이 입자들이 모여 실물 제품의 정교한 부품으로 조립되는 모핑 효과를 구현해줘.
+종이의 질감은 서서히 사라지고 실제 나무 책상의 결이 선명해지며 제품이 완성돼.
+카메라 앵글은 고정된 상태에서 아주 천천히 중앙으로 줌인하며 제품의 금속 광택을 강조해줘.
+
+배경음 및 사운드: 영감을 주는 미니멀한 테크 스타일의 앰비언트 배경음악을 깔아줘.`
+    };
+
+    function resetPrompt(id) {
+      if (DEFAULT_PROMPTS[id] !== undefined) {
+        document.getElementById(id).value = DEFAULT_PROMPTS[id];
+        showToast('프롬프트가 초기화되었습니다.');
+      }
     }
 
     let toastTimer;
