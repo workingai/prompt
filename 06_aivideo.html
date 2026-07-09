@@ -168,26 +168,49 @@
 
       <!-- ================= CONTAINER 1: AI활용 가상모델 만들기 (탭 1) ================= -->
       <div id="tab-1-container" class="flex flex-col gap-6">
-        <section class="flex flex-col border border-[#DDDBD5] rounded-xl bg-brand-100 overflow-hidden shadow-xs">
-          <div class="p-4 pb-2.5 flex-shrink-0 bg-brand-100">
-            <strong class="block text-neutral-900 text-base font-extrabold mb-1">👩 가상모델 생성 프롬프트</strong>
-            <span class="block text-[#605E59] text-xs leading-tight">가상 인물 실사 이미지를 생성하기 위한 기본 프롬프트입니다. (수정 가능)</span>
-          </div>
-          <textarea id="prompt-model" class="w-full p-4 border-t border-b border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-sm md:text-base leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none h-48 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">30대 초반의 한국인 여성 가상 모델, 기업 홍보 및 채용 커뮤니케이션용 이미지.
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <section class="flex flex-col border border-[#DDDBD5] rounded-xl bg-brand-100 overflow-hidden shadow-xs">
+            <div class="p-4 pb-2.5 flex-shrink-0 bg-brand-100">
+              <strong class="block text-neutral-900 text-base font-extrabold mb-1">👩 가상모델 생성 프롬프트</strong>
+              <span class="block text-[#605E59] text-xs leading-tight">가상 인물 실사 이미지를 생성하기 위한 기본 프롬프트입니다. (수정 가능)</span>
+            </div>
+            <textarea id="prompt-model" class="w-full p-4 border-t border-b border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-sm md:text-base leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none h-48 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">30대 초반의 한국인 여성 가상 모델, 기업 홍보 및 채용 커뮤니케이션용 이미지.
 배경: 밝고 깔끔한 흰색 스튜디오.
 표정: 자신감 있고 신뢰감 있는 미소, 카메라를 정면으로 바라보는 시선.
 스타일: 단정한 비즈니스 캐주얼, 고화질 실사 스타일, 브랜드 웹사이트 및 채용 페이지용.
 화각 및 비율: 16:9 가로형 이미지, 가로 화면 (Landscape orientation).</textarea>
-          <div class="p-4 bg-white flex justify-end">
-            <button onclick="copyPrompt('prompt-model')" class="px-6 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm md:text-base font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none">
-              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
-                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg>
-              프롬프트 복사
-            </button>
-          </div>
-        </section>
+            <div class="p-4 bg-white flex justify-end">
+              <button onclick="copyPrompt('prompt-model')" class="px-6 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm md:text-base font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                프롬프트 복사
+              </button>
+            </div>
+          </section>
+
+          <section class="flex flex-col border border-[#DDDBD5] rounded-xl bg-brand-100 overflow-hidden shadow-xs">
+            <div class="p-4 pb-2.5 flex-shrink-0 bg-brand-100">
+              <strong class="block text-neutral-900 text-base font-extrabold mb-1">🖼️ 배경 상황 변경</strong>
+              <span class="block text-[#605E59] text-xs leading-tight">동일 모델의 다른 상황/배경을 연출하기 위한 프롬프트입니다. (수정 가능)</span>
+            </div>
+            <textarea id="prompt-bg-change" class="w-full p-4 border-t border-b border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-sm md:text-base leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none h-48 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">앞서 생성한 모델 이미지를 활용해서
+동일한 인물이 아래 상황에 있는 이미지를 만들어줘.
+- 밝은 카페에서 노트북 작업 중인 모습
+- 회의실에서 프레젠테이션하는 모습
+- 야외 공원에서 걷고 있는 모습</textarea>
+            <div class="p-4 bg-white flex justify-end">
+              <button onclick="copyPrompt('prompt-bg-change')" class="px-6 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm md:text-base font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                프롬프트 복사
+              </button>
+            </div>
+          </section>
+        </div>
       </div>
 
       <!-- ================= CONTAINER 2: 이미지 영상화 (탭 2) ================= -->
@@ -384,6 +407,11 @@
 표정: 자신감 있고 신뢰감 있는 미소, 카메라를 정면으로 바라보는 시선.
 스타일: 단정한 비즈니스 캐주얼, 고화질 실사 스타일, 브랜드 웹사이트 및 채용 페이지용.
 화각 및 비율: 16:9 가로형 이미지, 가로 화면 (Landscape orientation).`,
+      'prompt-bg-change': `앞서 생성한 모델 이미지를 활용해서
+동일한 인물이 아래 상황에 있는 이미지를 만들어줘.
+- 밝은 카페에서 노트북 작업 중인 모습
+- 회의실에서 프레젠테이션하는 모습
+- 야외 공원에서 걷고 있는 모습`,
       'prompt-start-img': `나무 재질의 사무실 책상을 위에서 비스듬히 내려다본 구도.
 책상 정중앙에 놓인 종이 위에 연필로 거칠게 그린 '미래형 스마트 에스프레소 머신'의 디자인 스케치가 있다.
 종이 옆에는 연필 and 지우개가 놓여 있고, 부드러운 아침 햇살이 비치는 16:9 고해상도의 실사 사진 스타일.`,

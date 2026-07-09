@@ -151,6 +151,12 @@
         <button onclick="showTab(2)" id="tab-btn-2" class="w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-white text-brand-500 border border-[#DDDBD5] hover:bg-neutral-50">
           2
         </button>
+        <button onclick="showTab(3)" id="tab-btn-3" class="w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-white text-brand-500 border border-[#DDDBD5] hover:bg-neutral-50">
+          3
+        </button>
+        <button onclick="showTab(4)" id="tab-btn-4" class="w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-white text-brand-500 border border-[#DDDBD5] hover:bg-neutral-50">
+          4
+        </button>
       </div>
     </header>
 
@@ -259,6 +265,112 @@
           </section>
         </div>
 
+        <!-- =================== 실습 3. 공지 포스터 =================== -->
+        <div id="content-poster" class="hidden flex flex-col gap-6">
+          <!-- Card Head 3 -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DDDBD5] pb-4 mb-2 flex-shrink-0">
+            <div>
+              <h2 class="text-lg md:text-xl font-extrabold text-neutral-900">공지 포스터 만들기</h2>
+              <p class="text-xs md:text-sm text-[#605E59] mt-1">프롬프트를 수정하여 사내 공지용 포스터 이미지를 생성해 보세요.</p>
+            </div>
+          </div>
+
+          <!-- 실습 프롬프트 -->
+          <section class="flex flex-col border border-[#DDDBD5] rounded-xl bg-brand-100 overflow-hidden shadow-xs">
+            <div class="p-4 pb-2.5 flex-shrink-0 bg-brand-100">
+              <strong class="block text-neutral-900 text-base font-extrabold mb-1">✍️ 공지 포스터 생성 프롬프트</strong>
+              <span class="block text-[#605E59] text-xs leading-tight">아래 지시 사항을 활용해 이미지를 만듭니다. (수정 가능)</span>
+            </div>
+            <textarea id="prompt-poster" class="w-full p-4 border-t border-b border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-sm md:text-base leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none h-64 md:h-80 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">아래 내용에 대해 조사한 뒤,
+조사한 내용을 바탕으로 사내 공유용 포스터 1장을 만들어줘.
+
+조사 내용: [예: 우리 업무에 적용할 수 있는 AI 도구 5가지]
+
+구성:
+- 제목과 핵심 메시지를 상단에 크게 배치
+- 조사한 내용을 3~5개 항목으로 정리해서 본문에 배치
+- 항목마다 도구명·핵심 기능·활용 시간 절감 효과 등 정보 포함
+
+디자인 조건:
+- 비율: 3:4 (세로형 포스터) 또는 16:9 (사내 게시판용)
+- 포인트 컬러 1~2가지로 통일
+- 항목별로 아이콘 또는 간단한 일러스트 활용
+- 가독성 높은 폰트, 핵심 키워드와 수치는 굵게 강조
+- 배경: 흰색 또는 깔끔한 단색
+- 한눈에 정보가 들어오는 인포그래픽형 포스터 스타일</textarea>
+            <div class="p-4 bg-white flex justify-end gap-2 border-t border-[#DDDBD5]">
+              <button onclick="resetPrompt('prompt-poster')" class="px-5 h-11 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-sm font-bold rounded-lg transition-all focus:outline-none flex items-center justify-center gap-1.5">
+                <svg class="w-4 h-4 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path>
+                </svg>
+                내용 초기화
+              </button>
+              <button onclick="copyPrompt('prompt-poster')" class="px-6 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm md:text-base font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                프롬프트 복사
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <!-- =================== 실습 4. 이메일 서명 =================== -->
+        <div id="content-signature" class="hidden flex flex-col gap-6">
+          <!-- Card Head 4 -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DDDBD5] pb-4 mb-2 flex-shrink-0">
+            <div>
+              <h2 class="text-lg md:text-xl font-extrabold text-neutral-900">이메일 서명 만들기</h2>
+              <p class="text-xs md:text-sm text-[#605E59] mt-1">프롬프트를 수정하여 비즈니스용 이메일 서명 이미지를 완성해 보세요.</p>
+            </div>
+          </div>
+
+          <!-- 실습 프롬프트 -->
+          <section class="flex flex-col border border-[#DDDBD5] rounded-xl bg-brand-100 overflow-hidden shadow-xs">
+            <div class="p-4 pb-2.5 flex-shrink-0 bg-brand-100">
+              <strong class="block text-neutral-900 text-base font-extrabold mb-1">✍️ 이메일 서명 생성 프롬프트</strong>
+              <span class="block text-[#605E59] text-xs leading-tight">아래 지시 사항을 활용해 이미지를 만듭니다. (수정 가능)</span>
+            </div>
+            <textarea id="prompt-signature" class="w-full p-4 border-t border-b border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-sm md:text-base leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none h-64 md:h-80 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">첨부한 로고 이미지를 분석해줘.
+로고의 주요 색상과 브랜드 스타일을 파악한 뒤
+아래 정보로 이메일 서명 이미지를 만들어줘.
+
+[서명 정보]
+이름: [          ]
+직책: [          ]
+부서: [          ]
+회사명: [          ]
+이메일: [          ]
+전화번호: [          ]
+웹사이트: [          ]
+
+[디자인 조건]
+- 비율: 4:1 (가로 600px × 세로 150px)
+- 좌측: 로고 배치
+- 로고 우측에 세로 구분선 후 인적사항 나열
+- 배경색·포인트 컬러는 로고 색상에서 추출
+- 간결하고 전문적인 비즈니스 스타일
+- 한글·영문 텍스트 모두 명확하게 표현
+- 여백을 충분히 줘서 답답하지 않게</textarea>
+            <div class="p-4 bg-white flex justify-end gap-2 border-t border-[#DDDBD5]">
+              <button onclick="resetPrompt('prompt-signature')" class="px-5 h-11 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-sm font-bold rounded-lg transition-all focus:outline-none flex items-center justify-center gap-1.5">
+                <svg class="w-4 h-4 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path>
+                </svg>
+                내용 초기화
+              </button>
+              <button onclick="copyPrompt('prompt-signature')" class="px-6 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm md:text-base font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                프롬프트 복사
+              </button>
+            </div>
+          </section>
+        </div>
+
       </div>
     </section>
   </main>
@@ -269,31 +381,52 @@
     function showTab(num) {
       const visSection = document.getElementById('content-vis');
       const choroSection = document.getElementById('content-choro');
+      const posterSection = document.getElementById('content-poster');
+      const signatureSection = document.getElementById('content-signature');
       const headerTitle = document.getElementById('header-title');
-      const btn1 = document.getElementById('tab-btn-1');
-      const btn2 = document.getElementById('tab-btn-2');
+      
+      const buttons = [
+        document.getElementById('tab-btn-1'),
+        document.getElementById('tab-btn-2'),
+        document.getElementById('tab-btn-3'),
+        document.getElementById('tab-btn-4')
+      ];
 
       const activeClass = ['bg-brand-500', 'text-white', 'border-brand-500'];
       const inactiveClass = ['bg-white', 'text-brand-500', 'border-[#DDDBD5]', 'hover:bg-neutral-50'];
 
+      // Hide all sections
+      visSection.classList.add('hidden');
+      choroSection.classList.add('hidden');
+      posterSection.classList.add('hidden');
+      signatureSection.classList.add('hidden');
+
+      // Reset all buttons style
+      buttons.forEach(btn => {
+        if (btn) {
+          btn.classList.remove(...activeClass);
+          btn.classList.add(...inactiveClass);
+        }
+      });
+
+      // Set active button style and header title
       if (num === 1) {
         visSection.classList.remove('hidden');
-        choroSection.classList.add('hidden');
         headerTitle.textContent = "SVG 형식의 차트 만들기";
-        
-        btn1.classList.remove(...inactiveClass);
-        btn1.classList.add(...activeClass);
-        btn2.classList.remove(...activeClass);
-        btn2.classList.add(...inactiveClass);
-      } else {
-        visSection.classList.add('hidden');
+      } else if (num === 2) {
         choroSection.classList.remove('hidden');
         headerTitle.textContent = "코로플렉스 형식 인포그래픽 만들기";
+      } else if (num === 3) {
+        posterSection.classList.remove('hidden');
+        headerTitle.textContent = "공지 포스터 만들기";
+      } else if (num === 4) {
+        signatureSection.classList.remove('hidden');
+        headerTitle.textContent = "이메일 서명 만들기";
+      }
 
-        btn1.classList.remove(...activeClass);
-        btn1.classList.add(...inactiveClass);
-        btn2.classList.remove(...inactiveClass);
-        btn2.classList.add(...activeClass);
+      if (buttons[num - 1]) {
+        buttons[num - 1].classList.remove(...inactiveClass);
+        buttons[num - 1].classList.add(...activeClass);
       }
     }
 
