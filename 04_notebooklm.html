@@ -183,13 +183,13 @@
           <p id="tool-desc" class="text-xs md:text-sm text-[#605E59] mt-1">아래 프롬프트를 활용해 동영상 오버뷰 영상을 만들 수 있습니다. 내용을 수정해서 만들어 보세요</p>
         </div>
         <div class="flex items-center gap-2 flex-shrink-0" id="card-links">
-          <a href="https://notebooklm.google/" target="_blank" class="px-4 h-9 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs md:text-sm font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none" style="text-decoration: none;">
+          <a id="link-notebook" href="https://notebooklm.google/" target="_blank" class="px-4 h-9 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs md:text-sm font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none" style="text-decoration: none;">
             <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
             </svg>
             NotebookLM
           </a>
-          <a href="https://youtu.be/_La55mgUv4M" target="_blank" class="px-4 h-9 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs md:text-sm font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none" style="text-decoration: none;">
+          <a id="link-youtube" href="https://youtu.be/_La55mgUv4M" target="_blank" class="px-4 h-9 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs md:text-sm font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none" style="text-decoration: none;">
             <svg class="w-3.5 h-3.5 text-red-600 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.108C19.524 3.545 12 3.545 12 3.545s-7.525 0-9.387.51A3.004 3.004 0 0 0 .502 6.163C0 8.025 0 12 0 12s0 3.975.502 5.837a3.003 3.003 0 0 0 2.11 2.108c1.862.51 9.387.51 9.387.51s7.525 0 9.387-.51a3.004 3.004 0 0 0 2.11-2.108C24 15.975 24 12 24 12s0-3.975-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
             </svg>
@@ -200,6 +200,12 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
             </svg>
             공유 NotebookLM
+          </a>
+          <a id="link-template-download" href="download/master_template.pdf" download="master_template.pdf" class="hidden px-4 h-9 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs md:text-sm font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none" style="text-decoration: none;">
+            <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path>
+            </svg>
+            템플릿 다운로드
           </a>
         </div>
       </div>
@@ -263,18 +269,9 @@
           <textarea id="contentRequest" class="request" readonly></textarea>
         </div>
 
-        <div class="field" style="margin-top:18px">
+        <div class="field" style="margin-top:18px; margin-bottom: 0;">
           <label for="contentResult">생성된 목차 / 구성안 <small>NotebookLM 결과 붙여 넣기</small></label>
           <textarea id="contentResult" class="w-full p-4 border border-[#DDDBD5] bg-white text-[#333330] text-base rounded-lg focus:border-brand-500 focus:outline-none resize-none h-56" placeholder="NotebookLM이 생성한 슬라이드 목차와 구성안을 붙여 넣어주세요."></textarea>
-        </div>
-
-        <div class="reset-row">
-          <button class="reset" onclick="resetField('contentResult')">
-            <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path>
-            </svg>
-            입력 내용 초기화
-          </button>
         </div>
       </div>
     </article>
@@ -300,25 +297,12 @@
           <textarea id="designRequest" class="request" readonly></textarea>
         </div>
 
-        <div class="field" style="margin-top:18px">
+        <div class="field" style="margin-top:18px; margin-bottom: 0;">
           <label for="designResult">생성된 디자인 가이드 <small>NotebookLM 결과 붙여 넣기</small></label>
           <textarea id="designResult" class="w-full p-4 border border-[#DDDBD5] bg-white text-[#333330] text-base rounded-lg focus:border-brand-500 focus:outline-none resize-none h-56" placeholder="NotebookLM이 분석한 디자인 가이드를 붙여 넣어주세요."></textarea>
         </div>
 
-        <div class="reset-row" style="gap: 8px;">
-          <a href="download/master_template.pdf" download class="reset" style="text-decoration: none;">
-            <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path>
-            </svg>
-            템플릿 다운로드
-          </a>
-          <button class="reset" onclick="resetField('designResult')">
-            <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path>
-            </svg>
-            입력 내용 초기화
-          </button>
-        </div>
+
       </div>
     </article>
   </section>
@@ -381,8 +365,49 @@ const designRequest = `업로드된 템플릿을 분석해서
 - 여백과 정렬을 우선, 장식 최소화
 - 마크다운 사용 금지`;
 
+const DEFAULT_DESIGN_GUIDE = `[슬라이드 디자인 가이드]
+
+1. 전체 톤앤매너
+전문적이고 모던한 미니멀리즘. 불필요한 장식을 배제하고 넓은 여백으로 핵심 메시지에 시선을 집중시킵니다. 1슬라이드 1메시지 원칙을 반드시 준수합니다.
+
+2. 색상 규칙
+- 배경: 크림 베이지 #EDE8DC (기본) / 거의 검정 #1A1A1A (대비 카드·클로징 한정)
+- 텍스트: #1A1A1A (제목) / #6A6460 (본문)
+- 포인트 컬러: 레드오렌지 #D44920 — 핵심 키워드·숫자·도트에만, 슬라이드당 1~2곳 집중 사용
+- 구분선·카드 테두리: #D0C8B8
+- 절대 금지: 위 목록 외 임의 색상, 그라디언트, 그림자·3D 효과
+
+3. 타이포그래피 규칙
+커버(1페이지)
+- 디스플레이 타이틀: 72pt Bold, 3줄 이내, 핵심 단어 1~2개만 레드오렌지 처리, 마침표도 레드오렌지
+- 서브텍스트: 14pt Regular 1~2줄
+
+콘텐츠 슬라이드(2페이지 이후) — 3종 고정
+- T1 제목: 34pt Bold
+- T2 본문: 16pt Regular/Bold
+- T3 레이블/내비: 10pt, 대문자, 자간 2.5
+- 예외(그래픽 요소): 비교 카드 내 핵심 숫자만 68pt Bold 허용
+- 강조 방법: 레드오렌지 + Bold만 허용. 밑줄·이탤릭 금지.
+
+4. 레이아웃 규칙
+- 헤더 좌: ● 레드오렌지 도트 + 챕터 레이블 (T3, 대문자)
+- 헤더 우: 페이지 번호 002 / 005 형식 (T3)
+- 푸터 좌: LOGO 플레이스홀더 박스 / 푸터 우: 챕터 브레드크럼 (T3)
+- 여백: 상하좌우 최소 0.65" 유지, 텍스트는 항상 좌측 정렬
+
+5. 시각화 규칙
+- 비교 카드: 베이지 카드(좌) + 검정 카드(우) 병치, 핵심 숫자 68pt로 시각화
+- 번호 리스트: 01/02/03을 T1 크기·레드오렌지로 좌측 고정, 항목 사이 헤어라인 구분, 불릿 금지
+- 프로세스: 원형 번호(active=레드오렌지 채움, inactive=베이지+테두리) + 얇은 수평 연결선
+- 강조 배너: 검정 전폭 직사각형 + 백색 T2 텍스트, 슬라이드당 1회 이내
+
+6. 반드시 지킬 것 / 피할 것
+지킬 것: 폰트 크기는 커버 72pt + 콘텐츠 3종(T1/T2/T3)만 사용, 헤더·푸터 형식 전 슬라이드 동일하게 유지
+피할 것: 표(table) 형식, 4종 이상 폰트 크기 혼용, 레드오렌지를 배경·라인 등 장식 용도로 사용하는 것`;
+
 document.getElementById('contentRequest').value = contentRequest;
 document.getElementById('designRequest').value = designRequest;
+document.getElementById('designResult').value = DEFAULT_DESIGN_GUIDE;
 
 // iframe 내부에서도 안전하고 안정적으로 복사할 수 있는 헬퍼 함수
 function executeCopy(text, successMessage) {
@@ -435,8 +460,13 @@ ${design || '입력된 내용이 없습니다.'}`;
 }
 
 function resetField(id) {
-  document.getElementById(id).value = '';
-  showToast('입력 내용이 초기화되었습니다.');
+  if (id === 'designResult') {
+    document.getElementById(id).value = DEFAULT_DESIGN_GUIDE;
+    showToast('기본 디자인 가이드로 초기화되었습니다.');
+  } else {
+    document.getElementById(id).value = '';
+    showToast('입력 내용이 초기화되었습니다.');
+  }
 }
 
 let timer;
@@ -465,8 +495,11 @@ function showVideoOverview() {
   tab1.className = "w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-brand-500 text-white border border-brand-500";
   tab2.className = "w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-white text-brand-500 border border-[#DDDBD5] hover:bg-neutral-50";
 
-  // Hide shared-notebook-link on tab 1
+  // Hide / show links on tab 1
+  document.getElementById('link-notebook').classList.remove('hidden');
+  document.getElementById('link-youtube').classList.remove('hidden');
   document.getElementById('shared-notebook-link').classList.add('hidden');
+  document.getElementById('link-template-download').classList.add('hidden');
 }
 
 function showSlidePlanner() {
@@ -485,8 +518,11 @@ function showSlidePlanner() {
   tab1.className = "w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-white text-brand-500 border border-[#DDDBD5] hover:bg-neutral-50";
   tab2.className = "w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-brand-500 text-white border border-brand-500";
 
-  // Show shared-notebook-link on tab 2
-  document.getElementById('shared-notebook-link').classList.remove('hidden');
+  // Hide / show links on tab 2
+  document.getElementById('link-notebook').classList.add('hidden');
+  document.getElementById('link-youtube').classList.add('hidden');
+  document.getElementById('shared-notebook-link').classList.add('hidden');
+  document.getElementById('link-template-download').classList.remove('hidden');
 }
 
 function copyPromptText(id) {

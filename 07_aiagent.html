@@ -153,121 +153,263 @@
   <!-- ===== Main Content ===== -->
   <main class="flex-1 flex flex-col overflow-hidden pt-8 lg:pt-10 pb-8 px-4 md:px-8 lg:px-10">
     <!-- Header Area -->
-    <header class="mb-4 flex-shrink-0">
-      <div class="mb-2">
-        <span class="inline-block bg-brand-500 text-white rounded-full px-4 py-1 text-[11.5px] font-mono font-extrabold tracking-wider uppercase">AI Agent</span>
+    <header class="mb-4 flex-shrink-0 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+      <div>
+        <div class="mb-2">
+          <span class="inline-block bg-brand-500 text-white rounded-full px-4 py-1 text-[11.5px] font-mono font-extrabold tracking-wider uppercase">AI Agent</span>
+        </div>
+        <h1 id="header-title" class="text-2xl md:text-3xl font-extrabold tracking-tight leading-tight text-neutral-900">
+          메타프롬프트를 활용한 챗봇 만들기
+        </h1>
       </div>
-      <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight leading-tight text-neutral-900">
-        웹앱 프롬프트 생성기
-      </h1>
+      <!-- Navigation buttons in header -->
+      <div class="flex items-center gap-2 flex-shrink-0 mb-1">
+        <button onclick="showTab(1)" id="tab-btn-1" class="w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-brand-500 text-white border border-brand-500">
+          1
+        </button>
+        <button onclick="showTab(2)" id="tab-btn-2" class="w-9 h-9 flex items-center justify-center rounded-full font-bold text-sm transition-all focus:outline-none bg-white text-brand-500 border border-[#DDDBD5] hover:bg-neutral-50">
+          2
+        </button>
+      </div>
     </header>
 
     <section class="border border-[#DDDBD5] rounded-2xl p-5 md:p-6 bg-white shadow-sm flex-1 flex flex-col overflow-y-auto">
-      <!-- Card Head -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DDDBD5] pb-4 mb-4 flex-shrink-0">
-        <div>
-          <h2 class="text-lg md:text-xl font-extrabold text-neutral-900">웹앱 프롬프트 생성 조건 입력</h2>
-          <p class="text-xs md:text-sm text-[#605E59] mt-1">선택한 예시의 Input·Output·기능 설명이 자동으로 입력됩니다. 내용을 자유롭게 바꿔보세요.</p>
+      <!-- Practice Content Container -->
+      <div class="flex-1 flex flex-col gap-6">
+
+        <!-- =================== 실습 1. 메타프롬프트 챗봇 제작 =================== -->
+        <div id="content-meta" class="flex flex-col gap-6">
+          <!-- Card Head 1 -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DDDBD5] pb-4 mb-2 flex-shrink-0">
+            <div>
+              <h2 class="text-lg md:text-xl font-extrabold text-neutral-900">메타프롬프트 활용</h2>
+              <p class="text-xs md:text-sm text-[#605E59] mt-1">아래 프롬프트를 복사하여 ChatGPT나 Gemini 등에서 실행해 보세요.</p>
+            </div>
+            <div class="flex-shrink-0">
+              <a href="https://chatgpt.com/" target="_blank" class="flex-shrink-0 inline-flex items-center justify-center gap-2 px-4 h-9 border border-[#DDDBD5] hover:border-emerald-500 bg-white hover:bg-emerald-50 text-neutral-900 hover:text-emerald-700 font-bold text-xs md:text-sm rounded-lg transition-all shadow-xs focus:outline-none" style="text-decoration: none;">
+                <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
+                </svg>
+                ChatGPT 바로가기
+              </a>
+            </div>
+          </div>
+
+          <!-- 실습 프롬프트 -->
+          <section class="flex flex-col border border-[#DDDBD5] rounded-xl bg-brand-100 overflow-hidden shadow-xs">
+            <div class="p-4 pb-2.5 flex-shrink-0 bg-brand-100">
+              <strong class="block text-neutral-900 text-base font-extrabold mb-1">✍️ 메타프롬프트</strong>
+              <span class="block text-[#605E59] text-xs leading-tight">아래 지시 사항을 활용해 챗봇 지침을 만듭니다. (수정 가능)</span>
+            </div>
+            <textarea id="prompt-meta" class="w-full p-4 border-t border-b border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-sm md:text-base leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none h-64 md:h-80 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">너는 챗봇 설계 전문가야.
+아래 조건에 맞는 챗봇을 만들기 위한 '지침(시스템 프롬프트)'을 작성해줘.
+
+[사용자가 입력할 사항]
+- 생년월일
+- 태어난 시간
+
+[챗봇이 할 일]
+- 입력받은 생년월일과 태어난 시간을 바탕으로
+  사용자의 연령대를 파악하고
+- 연령대별로 다른 관심사와 고민(예: 20대는 취업/연애,
+  30대는 직장/결혼, 40대는 건강/자녀 교육 등)을 반영해서
+  맞춤형 운세를 알려줌. 
+
+
+위 내용을 반영해서, 이 챗봇에게 그대로 입력할 수 있는
+완성된 시스템 프롬프트(지침) 형태로 작성해줘.</textarea>
+            <div class="p-4 bg-white flex justify-end gap-2 border-t border-[#DDDBD5]">
+              <button onclick="resetMetaPrompt()" class="px-5 h-11 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-sm font-bold rounded-lg transition-all focus:outline-none flex items-center justify-center gap-1.5">
+                <svg class="w-4 h-4 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path>
+                </svg>
+                내용 초기화
+              </button>
+              <button onclick="copyMetaPrompt()" class="px-6 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm md:text-base font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                프롬프트 복사
+              </button>
+            </div>
+          </section>
         </div>
-        <div>
-          <select id="sampleSelect" class="text-base font-bold border border-[#DDDBD5] bg-white text-neutral-700 rounded-lg px-4 py-2.5 w-64 md:w-80 focus:border-brand-500 focus:outline-none cursor-pointer">
-            <option value="qr">QR 코드 생성기</option>
-            <option value="color">컬러코드 추출기</option>
-            <option value="pdf">PDF 분리기</option>
-            <option value="resize">이미지 규격 변환기</option>
-            <option value="minutes">회의록 작성기</option>
-          </select>
+
+        <!-- =================== 실습 2. 웹앱 프롬프트 생성기 =================== -->
+        <div id="content-webapp" class="hidden flex flex-col gap-6">
+          <!-- Card Head -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DDDBD5] pb-4 mb-2 flex-shrink-0">
+            <div>
+              <h2 class="text-lg md:text-xl font-extrabold text-neutral-900">웹앱 프롬프트 생성 조건 입력</h2>
+              <p class="text-xs md:text-sm text-[#605E59] mt-1">선택한 예시의 Input·Output·기능 설명이 자동으로 입력됩니다. 내용을 자유롭게 바꿔보세요.</p>
+            </div>
+            <div>
+              <select id="sampleSelect" class="text-base font-bold border border-[#DDDBD5] bg-white text-neutral-700 rounded-lg px-4 py-2.5 w-64 md:w-80 focus:border-brand-500 focus:outline-none cursor-pointer">
+                <option value="qr">QR 코드 생성기</option>
+                <option value="color">컬러코드 추출기</option>
+                <option value="pdf">PDF 분리기</option>
+                <option value="resize">이미지 규격 변환기</option>
+                <option value="minutes">회의록 작성기</option>
+              </select>
+            </div>
+          </div>
+
+          <section class="flow">
+            <article class="card">
+              <div class="card-head">
+                <div><h2>📥 Input. 사용자가 입력할 부분</h2><p>웹앱에서 사용자가 입력해야 할 사항을 구체적으로 작성합니다.</p></div>
+                <span class="badge">INPUT</span>
+              </div>
+              <div class="card-body">
+                <div class="input-list">
+                  <div><label for="inputText">사용자 입력</label><textarea id="inputText" class="w-full p-4 border border-[#DDDBD5] bg-white text-[#333330] text-base rounded-lg focus:border-brand-500 focus:outline-none resize-none h-32">웹사이트 주소(URL)</textarea></div>
+                  <div><label for="inputDetail">입력 방식 및 조건 (선택 영역)</label><textarea id="inputDetail" class="w-full p-4 border border-[#DDDBD5] bg-white text-[#333330] text-base rounded-lg focus:border-brand-500 focus:outline-none resize-none h-32">URL 입력창 1개, https:// 형식 검증</textarea></div>
+                </div>
+              </div>
+            </article>
+
+            <div class="arrow">→</div>
+
+            <article class="card">
+              <div class="card-head">
+                <div><h2>📤 Output. 챗봇이 생성하는 결과</h2><p>인풋을 토대로 어떤 결과물을 만들지 정의합니다.</p></div>
+                <span class="badge">OUTPUT</span>
+              </div>
+              <div class="card-body">
+                <div class="input-list">
+                  <div><label for="outputText">결과물</label><textarea id="outputText" class="w-full p-4 border border-[#DDDBD5] bg-white text-[#333330] text-base rounded-lg focus:border-brand-500 focus:outline-none resize-none h-32">입력한 URL을 QR 코드 이미지로 변환해 표시</textarea></div>
+                  <div><label for="featureText">추가 기능 (선택 영역)</label><textarea id="featureText" class="w-full p-4 border border-[#DDDBD5] bg-white text-[#333330] text-base rounded-lg focus:border-brand-500 focus:outline-none resize-none h-32">생성 버튼 클릭 시 QR 코드 표시\nQR 코드 이미지 아래 다운로드 버튼 제공\n초기화 버튼 제공</textarea></div>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-[#DDDBD5]">
+            <button class="px-5 h-11 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-sm md:text-base font-bold rounded-lg transition-colors focus:outline-none flex items-center justify-center gap-1.5" id="resetBtn">
+              <svg class="w-4 h-4 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path>
+              </svg>
+              내용 초기화
+            </button>
+            <button class="px-6 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm md:text-base font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none" id="copyBtn">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              프롬프트 복사
+            </button>
+          </div>
         </div>
-      </div>
 
-  <section class="flow">
-    <article class="card">
-      <div class="card-head">
-        <div><h2>📥 Input. 사용자가 입력할 부분</h2><p>웹앱에서 사용자가 입력해야 할 사항을 구체적으로 작성합니다.</p></div>
-        <span class="badge">INPUT</span>
       </div>
-      <div class="card-body">
-        <div class="input-list">
-          <div><label for="inputText">사용자 입력</label><textarea id="inputText" class="w-full p-4 border border-[#DDDBD5] bg-white text-[#333330] text-base rounded-lg focus:border-brand-500 focus:outline-none resize-none h-32">웹사이트 주소(URL)</textarea></div>
-          <div><label for="inputDetail">입력 방식 및 조건 (선택 영역)</label><textarea id="inputDetail" class="w-full p-4 border border-[#DDDBD5] bg-white text-[#333330] text-base rounded-lg focus:border-brand-500 focus:outline-none resize-none h-32">URL 입력창 1개, https:// 형식 검증</textarea></div>
-        </div>
-      </div>
-    </article>
+    </section>
+  </main>
+  <div id="toast" class="toast"></div>
 
-    <div class="arrow">→</div>
+  <script>
+    function showTab(num) {
+      const metaSection = document.getElementById('content-meta');
+      const webappSection = document.getElementById('content-webapp');
+      const headerTitle = document.getElementById('header-title');
+      const btn1 = document.getElementById('tab-btn-1');
+      const btn2 = document.getElementById('tab-btn-2');
 
-    <article class="card">
-      <div class="card-head">
-        <div><h2>📤 Output. 챗봇이 생성하는 결과</h2><p>인풋을 토대로 어떤 결과물을 만들지 정의합니다.</p></div>
-        <span class="badge">OUTPUT</span>
-      </div>
-      <div class="card-body">
-        <div class="input-list">
-          <div><label for="outputText">결과물</label><textarea id="outputText" class="w-full p-4 border border-[#DDDBD5] bg-white text-[#333330] text-base rounded-lg focus:border-brand-500 focus:outline-none resize-none h-32">입력한 URL을 QR 코드 이미지로 변환해 표시</textarea></div>
-          <div><label for="featureText">추가 기능 (선택 영역)</label><textarea id="featureText" class="w-full p-4 border border-[#DDDBD5] bg-white text-[#333330] text-base rounded-lg focus:border-brand-500 focus:outline-none resize-none h-32">생성 버튼 클릭 시 QR 코드 표시
-QR 코드 이미지 아래 다운로드 버튼 제공
-초기화 버튼 제공</textarea></div>
-        </div>
-      </div>
-    </article>
-  </section>
+      const activeClass = ['bg-brand-500', 'text-white', 'border-brand-500'];
+      const inactiveClass = ['bg-white', 'text-brand-500', 'border-[#DDDBD5]', 'hover:bg-neutral-50'];
 
-  <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-[#DDDBD5]">
-    <button class="px-5 h-11 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-sm md:text-base font-bold rounded-lg transition-colors focus:outline-none flex items-center justify-center gap-1.5" id="resetBtn">
-      <svg class="w-4 h-4 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path>
-      </svg>
-      내용 초기화
-    </button>
-    <button class="px-6 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm md:text-base font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none" id="copyBtn">
-      <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
-        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke-linecap="round" stroke-linejoin="round"></path>
-      </svg>
-      프롬프트 복사
-    </button>
-  </div>
-  </section>
-</main>
-<div id="toast" class="toast"></div>
+      if (num === 1) {
+        metaSection.classList.remove('hidden');
+        webappSection.classList.add('hidden');
+        headerTitle.textContent = "메타프롬프트를 활용한 챗봇 만들기";
+        
+        btn1.classList.remove(...inactiveClass);
+        btn1.classList.add(...activeClass);
+        btn2.classList.remove(...activeClass);
+        btn2.classList.add(...inactiveClass);
+      } else {
+        metaSection.classList.add('hidden');
+        webappSection.classList.remove('hidden');
+        headerTitle.textContent = "웹앱 프롬프트 생성기";
 
-<script>
-const samples = {
-  qr: {
-    name:'QR 코드 생성기',
-    input:'웹사이트 주소(URL)',
-    detail:'URL 입력창 1개, https:// 형식 자동 검증',
-    output:'입력한 URL을 QR 코드 이미지로 변환해 표시',
-    features:'- 생성 버튼 클릭 시 QR 코드 즉시 표시\n- QR 코드 이미지 아래 PNG 다운로드 버튼 제공\n- 초기화 버튼 제공'
-  },
-  color: {
-    name:'컬러코드 추출기',
-    input:'이미지 파일',
-    detail:'이미지 업로드 버튼 또는 드래그앤드롭,\nJPG·PNG 형식 지원',
-    output:'업로드한 이미지를 캔버스에 미리보기로 표시\n- 사용자가 이미지 위에 마우스를 올리면\n  해당 픽셀의 컬러 정보를 실시간으로 표시\n- 마우스 클릭 시 해당 위치의 HEX 코드와 RGB 값을\n  색상 칩과 함께 하단에 저장·표시',
-    features:'- 마우스 커서 위치의 컬러 실시간 미리보기\n- 클릭으로 컬러 추출 및 HEX/RGB 동시 표시\n- 추출한 코드 클릭 시 클립보드 복사\n- 최근 추출한 색상 최대 10개 이력 표시\n- 초기화 버튼 제공'
-  },
-  pdf: {
-    name:'PDF 분리기',
-    input:'PDF 파일',
-    detail:'PDF 업로드 버튼 또는 드래그앤드롭',
-    output:'업로드 즉시 전체 페이지 수 자동 표시\n- 분리 방식 선택 옵션 2가지 제공:\n  옵션 A. 범위 슬라이더로 시작 페이지~끝 페이지 구간 선택\n  옵션 B. 특정 페이지 번호를 직접 입력해서 추출\n         (예: 1, 3, 5-8 형식)\n- 선택한 범위의 페이지만 포함된 새 PDF 파일 생성',
-    features:'- PDF 업로드 즉시 전체 페이지 수 표시\n- 슬라이더 또는 직접 입력 중 선택 가능\n- 분리 버튼 클릭 시 지정 페이지 PDF 생성\n- 생성된 PDF 다운로드 버튼 제공\n- 초기화 버튼 제공'
-  },
-  resize: {
-    name:'이미지 규격 변환기',
-    input:'이미지 파일',
-    detail:'이미지 업로드 버튼 또는 드래그앤드롭,\nJPG·PNG 형식 지원',
-    output:'업로드 즉시 원본 이미지 미리보기 표시\n- 원본 이미지의 크기(너비 x 높이 px)와 용량 자동 표시\n- 변환할 크기를 조정할 수 있는 입력 옵션 제공:\n  · 너비(px) 또는 높이(px) 직접 입력\n  · 비율 유지 체크 시 한쪽 값 변경하면 반대쪽 자동 계산\n  · 자주 쓰는 규격 빠른 선택 버튼 제공\n    (예: 1920x1080, 1280x720, 800x600, 정사각형 등)\n- 변환 버튼 클릭 시 지정 크기로 조정된 이미지 미리보기 표시',
-    features:'- 원본 크기·용량 자동 표시\n- 비율 유지 옵션\n- 자주 쓰는 규격 빠른 선택 버튼\n- JPG 또는 PNG 형식 선택 후 다운로드 버튼 제공\n- 초기화 버튼 제공'
-  },
-  minutes: {
-    name:'회의록 작성기',
-    input:'\n  · 일시, 장소, 참석자, 회의 주제, 회의 스크립트 ',
-    detail:'',
-    output:'입력한 스크립트를 분석해서 회사 회의록 양식에 맞게 자동 생성:\n  · 회의 기본 정보 (일시·장소·참석자·주제)\n  · 주제별 논의 내용 요약\n  · 결정 사항\n  · 담당자별 액션 아이템 및 기한\n  · 다음 회의 일정 (언급된 경우)\n- 생성된 회의록을 화면에 표시 후 복사 또는 다운로드 가능',
-    features:'- 회의록 PDF 출력 버튼 제공\n  (브라우저 인쇄 기능 활용 또는 PDF 라이브러리로 직접 생성)\n- 초기화 버튼 제공',
-    extra:`\n\n[중요 — 코딩 시작 전 반드시 먼저 질문할 것]
+        btn1.classList.remove(...activeClass);
+        btn1.classList.add(...inactiveClass);
+        btn2.classList.remove(...inactiveClass);
+        btn2.classList.add(...activeClass);
+      }
+    }
+
+    const DEFAULT_META_PROMPT = `너는 챗봇 설계 전문가야.
+아래 조건에 맞는 챗봇을 만들기 위한 '지침(시스템 프롬프트)'을 작성해줘.
+
+[사용자가 입력할 사항]
+- 생년월일
+- 태어난 시간
+
+[챗봇이 할 일]
+- 입력받은 생년월일과 태어난 시간을 바탕으로
+  사용자의 연령대를 파악하고
+- 연령대별로 다른 관심사와 고민(예: 20대는 취업/연애,
+  30대는 직장/결혼, 40대는 건강/자녀 교육 등)을 반영해서
+  맞춤형 운세를 알려줌. 
+
+
+위 내용을 반영해서, 이 챗봇에게 그대로 입력할 수 있는
+완성된 시스템 프롬프트(지침) 형태로 작성해줘.`;
+
+    function resetMetaPrompt() {
+      document.getElementById('prompt-meta').value = DEFAULT_META_PROMPT;
+      showToast('기본 프롬프트로 초기화되었습니다.');
+    }
+
+    async function copyMetaPrompt() {
+      const text = document.getElementById('prompt-meta').value;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+      }
+      showToast('프롬프트가 복사되었습니다.');
+    }
+
+    const samples = {
+      qr: {
+        name:'QR 코드 생성기',
+        input:'웹사이트 주소(URL)',
+        detail:'URL 입력창 1개, https:// 형식 자동 검증',
+        output:'입력한 URL을 QR 코드 이미지로 변환해 표시',
+        features:'- 생성 버튼 클릭 시 QR 코드 즉시 표시\n- QR 코드 이미지 아래 PNG 다운로드 버튼 제공\n- 초기화 버튼 제공'
+      },
+      color: {
+        name:'컬러코드 추출기',
+        input:'이미지 파일',
+        detail:'이미지 업로드 버튼 또는 드래그앤드롭,\nJPG·PNG 형식 지원',
+        output:'업로드한 이미지를 캔버스에 미리보기로 표시\n- 사용자가 이미지 위에 마우스를 올리면\n  해당 픽셀의 컬러 정보를 실시간으로 표시\n- 마우스 클릭 시 해당 위치의 HEX 코드와 RGB 값을\n  색상 칩과 함께 하단에 저장·표시',
+        features:'- 마우스 커서 위치의 컬러 실시간 미리보기\n- 클릭으로 컬러 추출 및 HEX/RGB 동시 표시\n- 추출한 코드 클릭 시 클립보드 복사\n- 최근 추출한 색상 최대 10개 이력 표시\n- 초기화 버튼 제공'
+      },
+      pdf: {
+        name:'PDF 분리기',
+        input:'PDF 파일',
+        detail:'PDF 업로드 버튼 또는 드래그앤드롭',
+        output:'업로드 즉시 전체 페이지 수 자동 표시\n- 분리 방식 선택 옵션 2가지 제공:\n  옵션 A. 범위 슬라이더로 시작 페이지~끝 페이지 구간 선택\n  옵션 B. 특정 페이지 번호를 직접 입력해서 추출\n         (예: 1, 3, 5-8 형식)\n- 선택한 범위의 페이지만 포함된 새 PDF 파일 생성',
+        features:'- PDF 업로드 즉시 전체 페이지 수 표시\n- 슬라이더 또는 직접 입력 중 선택 가능\n- 분리 버튼 클릭 시 지정 페이지 PDF 생성\n- 생성된 PDF 다운로드 버튼 제공\n- 초기화 버튼 제공'
+      },
+      resize: {
+        name:'이미지 규격 변환기',
+        input:'이미지 파일',
+        detail:'이미지 업로드 버튼 또는 드래그앤드롭,\nJPG·PNG 형식 지원',
+        output:'업로드 즉시 원본 이미지 미리보기 표시\n- 원본 이미지의 크기(너비 x 높이 px)와 용량 자동 표시\n- 변환할 크기를 조정할 수 있는 입력 옵션 제공:\n  · 너비(px) 또는 높이(px) 직접 입력\n  · 비율 유지 체크 시 한쪽 값 변경하면 반대쪽 자동 계산\n  · 자주 쓰는 규격 빠른 선택 버튼 제공\n    (예: 1920x1080, 1280x720, 800x600, 정사각형 등)\n- 변환 버튼 클릭 시 지정 크기로 조정된 이미지 미리보기 표시',
+        features:'- 원본 크기·용량 자동 표시\n- 비율 유지 옵션\n- 자주 쓰는 규격 빠른 선택 버튼\n- JPG 또는 PNG 형식 선택 후 다운로드 버튼 제공\n- 초기화 버튼 제공'
+      },
+      minutes: {
+        name:'회의록 작성기',
+        input:'\n  · 일시, 장소, 참석자, 회의 주제, 회의 스크립트 ',
+        detail:'',
+        output:'입력한 스크립트를 분석해서 회사 회의록 양식에 맞게 자동 생성:\n  · 회의 기본 정보 (일시·장소·참석자·주제)\n  · 주제별 논의 내용 요약\n  · 결정 사항\n  · 담당자별 액션 아이템 및 기한\n  · 다음 회의 일정 (언급된 경우)\n- 생성된 회의록을 화면에 표시 후 복사 또는 다운로드 가능',
+        features:'- 회의록 PDF 출력 버튼 제공\n  (브라우저 인쇄 기능 활용 또는 PDF 라이브러리로 직접 생성)\n- 초기화 버튼 제공',
+        extra:`\n\n[중요 — 코딩 시작 전 반드시 먼저 질문할 것]
 코드를 작성하기 전에 아래 질문을 먼저 해줘:
 
 "회의록 양식을 등록하시겠습니까?
@@ -284,20 +426,20 @@ const samples = {
     분석해서 동일한 형태로 회의록 출력
 - [아니오] 선택 시:
   · 기본 회의록 양식을 생성 후 바로 제작`
-  }
-};
+      }
+    };
 
-let currentAppName = '';
-let generatedPrompt = '';
-let currentExtra = '';
-const ids = ['inputText','inputDetail','outputText','featureText'];
-const $ = id => document.getElementById(id);
+    let currentAppName = '';
+    let generatedPrompt = '';
+    let currentExtra = '';
+    const ids = ['inputText','inputDetail','outputText','featureText'];
+    const $ = id => document.getElementById(id);
 
-function updatePreview() {
-  const detailVal = $('inputDetail').value.trim();
-  const detailLine = detailVal ? `\n- 입력 방식 및 조건: ${detailVal}` : '';
+    function updatePreview() {
+      const detailVal = $('inputDetail').value.trim();
+      const detailLine = detailVal ? `\n- 입력 방식 및 조건: ${detailVal}` : '';
 
-  generatedPrompt = `아래 요구사항을 만족하는 간단한 '${currentAppName}' 웹앱을 만들어줘.
+      generatedPrompt = `아래 요구사항을 만족하는 간단한 '${currentAppName}' 웹앱을 만들어줘.
 
 [Input]
 - 사용자가 입력하는 것: ${$('inputText').value}${detailLine}
@@ -315,47 +457,47 @@ ${$('featureText').value}
 - 디자인은 깔끔하고 직관적으로 만들어줘.
 - 입력 영역과 결과 영역을 명확히 구분해줘.
 - 모바일에서도 보기 좋게 반응형으로 구성해줘.${currentExtra}`;
-}
+    }
 
-function loadSample(key) {
-  const s = samples[key];
-  currentAppName = s.name;
-  $('inputText').value = s.input;
-  $('inputDetail').value = s.detail;
-  $('outputText').value = s.output;
-  $('featureText').value = s.features;
-  currentExtra = s.extra || '';
-  updatePreview();
-}
+    function loadSample(key) {
+      const s = samples[key];
+      currentAppName = s.name;
+      $('inputText').value = s.input;
+      $('inputDetail').value = s.detail;
+      $('outputText').value = s.output;
+      $('featureText').value = s.features;
+      currentExtra = s.extra || '';
+      updatePreview();
+    }
 
-async function copyPrompt() {
-  const text = generatedPrompt;
-  try {
-    await navigator.clipboard.writeText(text);
-  } catch {
-    const ta = document.createElement('textarea');
-    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
-    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
-  }
-  showToast('웹앱 제작 프롬프트가 복사되었습니다.');
-}
+    async function copyPrompt() {
+      const text = generatedPrompt;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+      }
+      showToast('웹앱 제작 프롬프트가 복사되었습니다.');
+    }
 
-function resetCurrent() {
-  loadSample($('sampleSelect').value);
-  showToast('선택한 예시로 초기화했습니다.');
-}
+    function resetCurrent() {
+      loadSample($('sampleSelect').value);
+      showToast('선택한 예시로 초기화했습니다.');
+    }
 
-let timer;
-function showToast(msg) {
-  const t = $('toast'); t.textContent = msg; clearTimeout(timer);
-  t.classList.add('show'); timer = setTimeout(() => t.classList.remove('show'), 2200);
-}
+    let timer;
+    function showToast(msg) {
+      const t = $('toast'); t.textContent = msg; clearTimeout(timer);
+      t.classList.add('show'); timer = setTimeout(() => t.classList.remove('show'), 2200);
+    }
 
-$('sampleSelect').addEventListener('change', e => loadSample(e.target.value));
-ids.forEach(id => $(id).addEventListener('input', updatePreview));
-$('copyBtn').addEventListener('click', copyPrompt);
-$('resetBtn').addEventListener('click', resetCurrent);
-loadSample('qr');
-</script>
+    $('sampleSelect').addEventListener('change', e => loadSample(e.target.value));
+    ids.forEach(id => $(id).addEventListener('input', updatePreview));
+    $('copyBtn').addEventListener('click', copyPrompt);
+    $('resetBtn').addEventListener('click', resetCurrent);
+    loadSample('qr');
+  </script>
 </body>
 </html>
