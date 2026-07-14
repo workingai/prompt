@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -195,17 +195,17 @@
             </svg>
             유튜브 가이드
           </a>
-          <a id="shared-notebook-link" href="https://notebooklm.google.com/notebook/853b7038-15e0-41d2-92cd-7db2b17b0622" target="_blank" class="px-4 h-9 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs md:text-sm font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none" style="text-decoration: none;">
-            <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
-            </svg>
-            공유 NotebookLM
-          </a>
           <a id="link-template-download" href="download/master_template.pdf" download="master_template.pdf" class="hidden px-4 h-9 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs md:text-sm font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none" style="text-decoration: none;">
             <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path>
             </svg>
             템플릿 다운로드
+          </a>
+          <a id="shared-notebook-link" href="https://notebooklm.google.com/notebook/853b7038-15e0-41d2-92cd-7db2b17b0622" target="_blank" class="px-4 h-9 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-xs md:text-sm font-bold rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none" style="text-decoration: none;">
+            <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
+            </svg>
+            공유노트북LM 바로가기
           </a>
           <a id="link-claude" href="https://claude.ai/" target="_blank" class="hidden px-4 h-9 border border-[#DDDBD5] hover:border-orange-500 bg-white hover:bg-orange-50 text-neutral-900 hover:text-orange-700 font-bold text-xs md:text-sm rounded-lg transition-all shadow-xs flex items-center justify-center gap-1.5 focus:outline-none" style="text-decoration: none;">
             <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -472,7 +472,7 @@ function showVideoOverview() {
   // Hide / show links on tab 1
   document.getElementById('link-notebook').classList.remove('hidden');
   document.getElementById('link-youtube').classList.remove('hidden');
-  document.getElementById('shared-notebook-link').classList.add('hidden');
+  document.getElementById('shared-notebook-link').classList.remove('hidden');
   document.getElementById('link-template-download').classList.add('hidden');
   document.getElementById('link-claude').classList.add('hidden');
 }
@@ -496,7 +496,7 @@ function showSlidePlanner() {
   // Hide / show links on tab 2
   document.getElementById('link-notebook').classList.add('hidden');
   document.getElementById('link-youtube').classList.add('hidden');
-  document.getElementById('shared-notebook-link').classList.add('hidden');
+  document.getElementById('shared-notebook-link').classList.remove('hidden');
   document.getElementById('link-template-download').classList.remove('hidden');
   document.getElementById('link-claude').classList.remove('hidden');
 }
