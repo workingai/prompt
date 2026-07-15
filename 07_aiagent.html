@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -159,7 +159,7 @@
           <span class="inline-block bg-brand-500 text-white rounded-full px-4 py-1 text-[11.5px] font-mono font-extrabold tracking-wider uppercase">AI Agent</span>
         </div>
         <h1 id="header-title" class="text-2xl md:text-3xl font-extrabold tracking-tight leading-tight text-neutral-900">
-          메타프롬프트를 활용한 챗봇 만들기
+          강의 자료를 활용한 AI 튜터 만들기
         </h1>
       </div>
       <!-- Navigation buttons in header -->
@@ -177,12 +177,12 @@
       <!-- Practice Content Container -->
       <div class="flex-1 flex flex-col gap-6">
 
-        <!-- =================== 실습 1. 메타프롬프트 챗봇 제작 =================== -->
+        <!-- =================== 실습 1. 강의 자료를 활용한 AI 튜터 만들기 =================== -->
         <div id="content-meta" class="flex flex-col gap-6">
           <!-- Card Head 1 -->
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DDDBD5] pb-4 mb-2 flex-shrink-0">
             <div>
-              <h2 class="text-lg md:text-xl font-extrabold text-neutral-900">메타프롬프트 활용</h2>
+              <h2 class="text-lg md:text-xl font-extrabold text-neutral-900">강의 자료를 활용한 AI 튜터 만들기</h2>
               <p class="text-xs md:text-sm text-[#605E59] mt-1">아래 프롬프트를 복사하여 ChatGPT나 Gemini 등에서 실행해 보세요.</p>
             </div>
             
@@ -208,26 +208,30 @@
           <!-- 실습 프롬프트 -->
           <section class="flex flex-col border border-[#DDDBD5] rounded-xl bg-brand-100 overflow-hidden shadow-xs">
             <div class="p-4 pb-2.5 flex-shrink-0 bg-brand-100">
-              <strong class="block text-neutral-900 text-base font-extrabold mb-1">✍️ 메타프롬프트</strong>
+              <strong class="block text-neutral-900 text-base font-extrabold mb-1">✍️ 실습 프롬프트</strong>
               <span class="block text-[#605E59] text-xs leading-tight">아래 지시 사항을 활용해 챗봇 지침을 만듭니다. (수정 가능)</span>
             </div>
             <textarea id="prompt-meta" class="w-full p-4 border-t border-b border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-sm md:text-base leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none h-64 md:h-80 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">너는 챗봇 설계 전문가야.
+AI 강의 자료를 활용해 실무에 바로 적용할 수 있도록 돕는
+AI 튜터 챗봇을 만들려고 해.
 아래 조건에 맞는 챗봇을 만들기 위한 '지침(시스템 프롬프트)'을 작성해줘.
 
 [사용자가 입력할 사항]
-- 생년월일
-- 태어난 시간
+- AI 활용과 관련된 질문
+  (강의 중 궁금한 용어, 개념, 실습 방법 등)
 
 [챗봇이 할 일]
-- 입력받은 생년월일과 태어난 시간을 바탕으로
-  사용자의 연령대를 파악하고
-- 연령대별로 다른 관심사와 고민(예: 20대는 취업/연애,
-  30대는 직장/결혼, 40대는 건강/자녀 교육 등)을 반영해서
-  맞춤형 운세를 알려줌. 
-
+- 입력받은 질문을 분석해서
+  '지식'에 등록된 강의 자료 중 관련 내용을 찾고
+- 강의 자료를 바탕으로 처음 접하는 사람도
+  이해할 수 있도록 쉬운 용어로 풀어서 설명함
+- 필요한 경우 예시나 비유를 들어 이해를 도움
+- 강의 자료에 없는 내용일 경우, 일반적인 AI 지식으로
+  보완하되 강의 자료에 없는 내용임을 함께 안내함
 
 위 내용을 반영해서, 이 챗봇에게 그대로 입력할 수 있는
-완성된 시스템 프롬프트(지침) 형태로 작성해줘.</textarea>
+완성된 시스템 프롬프트(지침) 형태로 작성해줘.
+프롬프트는 바로 복사가 가능하도록 코드박스에 넣어줘.</textarea>
             <div class="p-4 bg-white flex justify-end gap-2 border-t border-[#DDDBD5]">
               <button onclick="resetMetaPrompt()" class="px-5 h-11 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-sm font-bold rounded-lg transition-all focus:outline-none flex items-center justify-center gap-1.5">
                 <svg class="w-4 h-4 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -331,7 +335,7 @@
       if (num === 1) {
         metaSection.classList.remove('hidden');
         webappSection.classList.add('hidden');
-        headerTitle.textContent = "메타프롬프트를 활용한 챗봇 만들기";
+        headerTitle.textContent = "강의 자료를 활용한 AI 튜터 만들기";
         
         btn1.classList.remove(...inactiveClass);
         btn1.classList.add(...activeClass);
@@ -350,22 +354,26 @@
     }
 
     const DEFAULT_META_PROMPT = `너는 챗봇 설계 전문가야.
+AI 강의 자료를 활용해 실무에 바로 적용할 수 있도록 돕는
+AI 튜터 챗봇을 만들려고 해.
 아래 조건에 맞는 챗봇을 만들기 위한 '지침(시스템 프롬프트)'을 작성해줘.
 
 [사용자가 입력할 사항]
-- 생년월일
-- 태어난 시간
+- AI 활용과 관련된 질문
+  (강의 중 궁금한 용어, 개념, 실습 방법 등)
 
 [챗봇이 할 일]
-- 입력받은 생년월일과 태어난 시간을 바탕으로
-  사용자의 연령대를 파악하고
-- 연령대별로 다른 관심사와 고민(예: 20대는 취업/연애,
-  30대는 직장/결혼, 40대는 건강/자녀 교육 등)을 반영해서
-  맞춤형 운세를 알려줌. 
-
+- 입력받은 질문을 분석해서
+  '지식'에 등록된 강의 자료 중 관련 내용을 찾고
+- 강의 자료를 바탕으로 처음 접하는 사람도
+  이해할 수 있도록 쉬운 용어로 풀어서 설명함
+- 필요한 경우 예시나 비유를 들어 이해를 도움
+- 강의 자료에 없는 내용일 경우, 일반적인 AI 지식으로
+  보완하되 강의 자료에 없는 내용임을 함께 안내함
 
 위 내용을 반영해서, 이 챗봇에게 그대로 입력할 수 있는
-완성된 시스템 프롬프트(지침) 형태로 작성해줘.`;
+완성된 시스템 프롬프트(지침) 형태로 작성해줘.
+프롬프트는 바로 복사가 가능하도록 코드박스에 넣어줘.`;
 
     function resetMetaPrompt() {
       document.getElementById('prompt-meta').value = DEFAULT_META_PROMPT;
