@@ -124,6 +124,53 @@
     </nav>
     <!-- Sidebar Footer (Banner) -->
     <div class="mt-auto border-t border-[#DDDBD5] p-4 bg-white flex-shrink-0">
+      <!-- Dropup Menu Container -->
+      <div class="relative mb-2.5">
+        <button id="quick-links-btn" onclick="toggleQuickLinks(event)" class="w-full flex items-center justify-between py-2 px-3 border border-[#DDDBD5] hover:border-brand-500 bg-white hover:bg-neutral-50 text-neutral-900 rounded-xl transition-all duration-300 shadow-xs text-sm font-extrabold focus:outline-none">
+          <span class="flex items-center gap-2 text-neutral-600 hover:text-neutral-900">
+            <span>🔗</span> 주요 서비스 바로가기
+          </span>
+          <svg id="quick-links-arrow" class="w-3.5 h-3.5 text-neutral-400 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5"></path>
+          </svg>
+        </button>
+        <!-- Dropup menu: hidden by default, absolute positioning above the button -->
+        <div id="quick-links-menu" class="hidden absolute bottom-full left-0 w-full mb-2 bg-white border border-[#DDDBD5] rounded-xl shadow-lg z-50 overflow-hidden py-1">
+          <a href="https://chatgpt.com" target="_blank" class="block px-4 py-2.5 text-xs text-neutral-700 hover:bg-brand-50 hover:text-brand-600 transition-colors font-bold border-b border-[#F2F1EE]">챗GPT</a>
+          <a href="https://gemini.google.com" target="_blank" class="block px-4 py-2.5 text-xs text-neutral-700 hover:bg-brand-50 hover:text-brand-600 transition-colors font-bold border-b border-[#F2F1EE]">제미나이</a>
+          <a href="https://claude.ai" target="_blank" class="block px-4 py-2.5 text-xs text-neutral-700 hover:bg-brand-50 hover:text-brand-600 transition-colors font-bold border-b border-[#F2F1EE]">클로드</a>
+          <a href="https://sheets.google.com" target="_blank" class="block px-4 py-2.5 text-xs text-neutral-700 hover:bg-brand-50 hover:text-brand-600 transition-colors font-bold border-b border-[#F2F1EE]">구글 시트</a>
+          <a href="https://docs.google.com/videos/create?usp=vids_alc&authuser=0" target="_blank" class="block px-4 py-2.5 text-xs text-neutral-700 hover:bg-brand-50 hover:text-brand-600 transition-colors font-bold border-b border-[#F2F1EE]">구글 Vids</a>
+          <a href="https://canva.com" target="_blank" class="block px-4 py-2.5 text-xs text-neutral-700 hover:bg-brand-50 hover:text-brand-600 transition-colors font-bold border-b border-[#F2F1EE]">캔바</a>
+          <a href="https://aistudio.google.com" target="_blank" class="block px-4 py-2.5 text-xs text-neutral-700 hover:bg-brand-50 hover:text-brand-600 transition-colors font-bold border-b border-[#F2F1EE]">AI Studio</a>
+          <a href="https://workspace.google.com/experiments" target="_blank" class="block px-4 py-2.5 text-xs text-neutral-700 hover:bg-brand-50 hover:text-brand-600 transition-colors font-bold">Workspace Experiments</a>
+        </div>
+      </div>
+      <script>
+        function toggleQuickLinks(e) {
+          e.stopPropagation();
+          const menu = document.getElementById('quick-links-menu');
+          const arrow = document.getElementById('quick-links-arrow');
+          const isHidden = menu.classList.contains('hidden');
+          if (isHidden) {
+            menu.classList.remove('hidden');
+            arrow.classList.add('rotate-180');
+          } else {
+            menu.classList.add('hidden');
+            arrow.classList.remove('rotate-180');
+          }
+        }
+        document.addEventListener('click', (e) => {
+          const menu = document.getElementById('quick-links-menu');
+          const btn = document.getElementById('quick-links-btn');
+          const arrow = document.getElementById('quick-links-arrow');
+          if (menu && !menu.classList.contains('hidden') && !menu.contains(e.target) && !btn.contains(e.target)) {
+            menu.classList.add('hidden');
+            arrow.classList.remove('rotate-180');
+          }
+        });
+      </script>
+
       <a href="https://workingai.kr/workshop" target="_blank" class="block w-full text-center py-3 px-4 border border-[#DDDBD5] hover:border-brand-500 bg-neutral-50 hover:bg-brand-50 text-neutral-900 hover:text-brand-600 rounded-xl transition-all duration-300 shadow-xs" style="text-decoration: none;">
         <span class="block text-xs font-bold text-neutral-400 mb-0.5 tracking-wider uppercase">Official Link</span>
         <span class="block text-sm font-extrabold tracking-tight">workingai.kr</span>
@@ -187,14 +234,9 @@
             </div>
             <textarea id="prompt-chatgpt" class="w-full p-4 border-t border-b border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-sm md:text-base leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none h-48 md:h-64 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">깔끔한 손그림 두들 스타일로 그려진 "직장인들을 위한 AI 학습 로드맵" 인포그래픽을 그려줘.
 전체적인 스타일은 검정색 라인 드로잉에 파스텔 톤으로 채색된 심플하고 정돈된 느낌이어야 해.
-고민하는 직장인(Before) → 4단계 로드맵(기초 프롬프트-문서 자동화-시각화-업무 자동화) → 자신감 있는 직장인(After) 구조로 구성해줘</textarea>
+고민하는 직장인(Before) → 4단계 로드맵(기초 프롬프트-문서 자동화-시각화-업무 자동화) → 자신감 있는 직장인(After) 구조로 구성해줘.
+이미지 비율은 16:9 비율로 제작해줘.</textarea>
             <div class="p-4 bg-white flex justify-end gap-2 border-t border-[#DDDBD5]">
-              <button onclick="resetPrompt('prompt-chatgpt')" class="px-5 h-11 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-sm font-bold rounded-lg transition-all focus:outline-none flex items-center justify-center gap-1.5">
-                <svg class="w-4 h-4 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path>
-                </svg>
-                내용 초기화
-              </button>
               <button onclick="copyPrompt('prompt-chatgpt')" class="px-6 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm md:text-base font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none">
                 <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
@@ -253,12 +295,6 @@
 - 계산 버튼 클릭 시 결과 표시
 - 결과는 천 단위 구분 쉼표(,) 적용</textarea>
             <div class="p-4 bg-white flex justify-end gap-2 border-t border-[#DDDBD5]">
-              <button onclick="resetPrompt('prompt-gemini')" class="px-5 h-11 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-sm font-bold rounded-lg transition-all focus:outline-none flex items-center justify-center gap-1.5">
-                <svg class="w-4 h-4 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path>
-                </svg>
-                내용 초기화
-              </button>
               <button onclick="copyPrompt('prompt-gemini')" class="px-6 h-11 bg-brand-500 hover:bg-brand-600 text-white text-sm md:text-base font-extrabold rounded-lg transition-all shadow-sm flex items-center justify-center gap-1.5 focus:outline-none">
                 <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <rect x="9" y="9" width="11" height="11" rx="2" ry="2" stroke-linecap="round" stroke-linejoin="round"></rect>
@@ -340,7 +376,8 @@
     const DEFAULT_PROMPTS = {
       'prompt-chatgpt': `깔끔한 손그림 두들 스타일로 그려진 "직장인들을 위한 AI 학습 로드맵" 인포그래픽을 그려줘.
 전체적인 스타일은 검정색 라인 드로잉에 파스텔 톤으로 채색된 심플하고 정돈된 느낌이어야 해.
-고민하는 직장인(Before) → 4단계 로드맵(기초 프롬프트-문서 자동화-시각화-업무 자동화) → 자신감 있는 직장인(After) 구조로 구성해줘`,
+고민하는 직장인(Before) → 4단계 로드맵(기초 프롬프트-문서 자동화-시각화-업무 자동화) → 자신감 있는 직장인(After) 구조로 구성해줘.
+이미지 비율은 16:9 비율로 제작해줘.`,
       'prompt-gemini': `업무에서 자주 쓰는 계산기 3가지를 탭으로 전환할 수 있는 웹앱을 만들어줘.
 
 탭 1. 마진율 계산기
