@@ -166,14 +166,17 @@
               <h2 class="text-lg md:text-xl font-extrabold text-neutral-900">ChatGPT Image 2.0 활용</h2>
               <p class="text-xs md:text-sm text-[#605E59] mt-1">ChatGPT에서 한글이 포함된 인포그래픽 이미지를 만들어 보세요</p>
             </div>
+            
+            
             <div class="flex-shrink-0">
               <a href="https://chatgpt.com/" target="_blank" class="flex-shrink-0 inline-flex items-center justify-center gap-2 px-4 h-9 border border-[#DDDBD5] hover:border-emerald-500 bg-white hover:bg-emerald-50 text-neutral-900 hover:text-emerald-700 font-bold text-xs md:text-sm rounded-lg transition-all shadow-xs focus:outline-none" style="text-decoration: none;">
                 <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
                 </svg>
-                ChatGPT 바로가기
-              </a>
+                ChatGPT 바로가기              </a>
             </div>
+
+
           </div>
 
           <!-- 실습 프롬프트 -->
@@ -182,9 +185,9 @@
               <strong class="block text-neutral-900 text-base font-extrabold mb-1">✍️ 이미지 생성 프롬프트</strong>
               <span class="block text-[#605E59] text-xs leading-tight">아래 지시 사항을 활용해 이미지를 만듭니다. (수정 가능)</span>
             </div>
-            <textarea id="prompt-chatgpt" class="w-full p-4 border-t border-b border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-sm md:text-base leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none h-48 md:h-64 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">스프링 노트 배경 위에 아기자기한 손그림 두들 스타일로 그려진 두바이쫀득쿠키의 인포그래픽을 그려줘.
-전체적인 스타일은 검정색 라인 드로잉에 부드러운 파스텔 톤으로 채색된 귀엽고 포근한 느낌이어야 해.
-실제 레시피는 검색 후 조사해서 만들어줘.</textarea>
+            <textarea id="prompt-chatgpt" class="w-full p-4 border-t border-b border-l-0 border-r-0 border-[#DDDBD5] bg-white text-neutral-900 text-sm md:text-base leading-relaxed placeholder-neutral-400 focus:border-brand-500 focus:ring-0 outline-none resize-none h-48 md:h-64 font-mono leading-relaxed" style="font-family: 'Pretendard', sans-serif;">깔끔한 손그림 두들 스타일로 그려진 "직장인들을 위한 AI 학습 로드맵" 인포그래픽을 그려줘.
+전체적인 스타일은 검정색 라인 드로잉에 파스텔 톤으로 채색된 심플하고 정돈된 느낌이어야 해.
+고민하는 직장인(Before) → 4단계 로드맵(기초 프롬프트-문서 자동화-시각화-업무 자동화) → 자신감 있는 직장인(After) 구조로 구성해줘</textarea>
             <div class="p-4 bg-white flex justify-end gap-2 border-t border-[#DDDBD5]">
               <button onclick="resetPrompt('prompt-chatgpt')" class="px-5 h-11 border border-[#DDDBD5] bg-white hover:bg-neutral-50 text-neutral-900 text-sm font-bold rounded-lg transition-all focus:outline-none flex items-center justify-center gap-1.5">
                 <svg class="w-4 h-4 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -203,22 +206,24 @@
           </section>
         </div>
 
-        <!-- =================== 실습 2. Gemini Canvas 웹앱 제작 =================== -->
-        <div id="content-gemini" class="hidden flex flex-col gap-6">
+        <!-- =================== 쟍쯵 2. Gemini Canvas 웹앱 짌작 =================== -->        <div id="content-gemini" class="hidden flex flex-col gap-6">
           <!-- Card Head 2 -->
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#DDDBD5] pb-4 mb-2 flex-shrink-0">
             <div>
               <h2 class="text-lg md:text-xl font-extrabold text-neutral-900">Gemini Canvas 활용</h2>
               <p class="text-xs md:text-sm text-[#605E59] mt-1">Gemini의 Canvas 모듈에서 간단한 html 도구를 직접 만들 수 있습니다</p>
             </div>
+            
+            
             <div class="flex-shrink-0">
               <a href="https://gemini.google.com/" target="_blank" class="flex-shrink-0 inline-flex items-center justify-center gap-2 px-4 h-9 border border-[#DDDBD5] hover:border-blue-500 bg-white hover:bg-blue-50 text-neutral-900 hover:text-blue-700 font-bold text-xs md:text-sm rounded-lg transition-all shadow-xs focus:outline-none" style="text-decoration: none;">
                 <svg class="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
                 </svg>
-                Gemini 바로가기
-              </a>
+                Gemini 바로가기              </a>
             </div>
+
+
           </div>
 
           <!-- 실습 프롬프트 -->
@@ -333,9 +338,9 @@
     }
 
     const DEFAULT_PROMPTS = {
-      'prompt-chatgpt': `스프링 노트 배경 위에 아기자기한 손그림 두들 스타일로 그려진 두바이쫀득쿠키의 인포그래픽을 그려줘.
-전체적인 스타일은 검정색 라인 드로잉에 부드러운 파스텔 톤으로 채색된 귀엽고 포근한 느낌이어야 해.
-실제 레시피는 검색 후 조사해서 만들어줘.`,
+      'prompt-chatgpt': `깔끔한 손그림 두들 스타일로 그려진 "직장인들을 위한 AI 학습 로드맵" 인포그래픽을 그려줘.
+전체적인 스타일은 검정색 라인 드로잉에 파스텔 톤으로 채색된 심플하고 정돈된 느낌이어야 해.
+고민하는 직장인(Before) → 4단계 로드맵(기초 프롬프트-문서 자동화-시각화-업무 자동화) → 자신감 있는 직장인(After) 구조로 구성해줘`,
       'prompt-gemini': `업무에서 자주 쓰는 계산기 3가지를 탭으로 전환할 수 있는 웹앱을 만들어줘.
 
 탭 1. 마진율 계산기
