@@ -221,10 +221,9 @@
         });
       </script>
 
-      <a href="https://workingai.kr/workshop" target="_blank" class="block w-full text-center py-3 px-4 border border-[#DDDBD5] hover:border-brand-500 bg-neutral-50 hover:bg-brand-50 text-neutral-900 hover:text-brand-600 rounded-xl transition-all duration-300 shadow-xs" style="text-decoration: none;">
-        <span class="block text-xs font-bold text-neutral-400 mb-0.5 tracking-wider uppercase">Official Link</span>
-        <span class="block text-sm font-extrabold tracking-tight">workingai.kr</span>
-      </a>
+      <button onclick="localStorage.removeItem('workbook_logged_in'); location.href='index.html';" class="block w-full text-center py-2 px-3 border border-[#DDDBD5] hover:border-red-500 bg-neutral-50 hover:bg-red-50 text-neutral-500 hover:text-red-600 rounded-xl transition-all duration-300 shadow-xs text-xs font-bold focus:outline-none">
+        🚪 로그아웃
+      </button>
     </div>
   </aside>
 
