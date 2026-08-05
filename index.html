@@ -52,7 +52,10 @@
     <div class="fixed top-0 left-0 w-full h-[5px] bg-brand-500 z-50"></div>
 
     <!-- Header -->
-    <header class="w-full max-w-7xl mx-auto pt-16 pb-4 px-6 text-center">
+    <header class="w-full max-w-7xl mx-auto pt-16 pb-4 px-6 text-center relative">
+        <button id="logout-btn" onclick="localStorage.removeItem('workbook_logged_in'); location.reload();" class="absolute top-4 right-6 hidden items-center gap-1.5 px-3 py-1.5 border border-[#DDDBD5] hover:border-red-500 bg-white hover:bg-red-50 text-neutral-500 hover:text-red-600 rounded-lg transition-all duration-300 text-xs font-bold focus:outline-none">
+            🚪 로그아웃
+        </button>
         <div class="mb-4 inline-flex items-center gap-2">
             <span
                 class="bg-brand-100 text-brand-600 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Working
@@ -323,6 +326,8 @@
             document.getElementById('login-gate').classList.add('hidden');
             document.getElementById('workbook-content').classList.remove('hidden');
             document.getElementById('workbook-content').classList.add('flex');
+            document.getElementById('logout-btn').classList.remove('hidden');
+            document.getElementById('logout-btn').classList.add('flex');
         }
 
         // Init check
@@ -333,6 +338,8 @@
                 document.getElementById('login-gate').classList.remove('hidden');
                 document.getElementById('workbook-content').classList.add('hidden');
                 document.getElementById('workbook-content').classList.remove('flex');
+                document.getElementById('logout-btn').classList.add('hidden');
+                document.getElementById('logout-btn').classList.remove('flex');
             }
         });
     </script>
